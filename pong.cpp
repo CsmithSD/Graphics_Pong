@@ -41,7 +41,7 @@ int main( int argc, char *argv[])
     // Pong window
     glutInitWindowSize( 400, 400 );
     glutInitWindowPosition( 0, 100 );
-    int pong = glutCreateWindow( "Pong" );
+    int pong = glutCreateWindow( "PongTest" );
 
     // Pong Callbacks
     glutDisplayFunc( display );
