@@ -6,9 +6,13 @@
  * Description: Simple struct definition for handling colors. 
  * ***************************************************************************/
 
+#ifndef _COLOR_H_
+#define _COLOR_H_
 struct Color
 {
     float r;
     float g;
     float b;
 };
+
+#endif

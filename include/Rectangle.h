@@ -8,6 +8,9 @@
  * Inherited by: 
  * ***************************************************************************/
 
+#ifndef _RECTANGLE_H_
+#define RECTANGLE_H_
+
 #include "Color.h"
 #include "Entity2D.h"
 
@@ -27,3 +30,4 @@ class Rectangle : public Entity2D.h
     float height;
     Color color;
 };
+#endif

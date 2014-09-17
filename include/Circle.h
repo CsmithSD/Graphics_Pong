@@ -7,6 +7,9 @@
  * Inherits: Entity2D.h
  * Inherited by: 
  * ***************************************************************************/
+#ifndef _CIRCLE_H_
+#define _CIRCLE_H_
+
 #include "Color.h"
 #include "Entity2D.h"
 
@@ -25,3 +28,5 @@ class Circle : public Entity2D
     private:
     Color color;
 };
+
+#endif

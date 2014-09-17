@@ -8,6 +8,9 @@
  * Inherits From: Entity2D
  * Inherited By: None (Yet)
  * ***************************************************************************/
+#ifndef _ENTITTY_3D_H_
+#define _ENTITYT_3D_H_
+
 #include "Entity2D.h"
 
 class Entity3D : public Entity2D
@@ -43,3 +46,6 @@ class Entity3D : public Entity2D
     float pitch;
     float roll;
 };
+
+#endif
+
