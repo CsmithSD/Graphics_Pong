@@ -21,6 +21,7 @@ class Circle : public Entity2D
     void set_color(float r = 0, float g = 0, float b = 0);
     float get_radius();
     void set_radius(float radius);
+    Color get_color();
 
     protected:
     float radius;

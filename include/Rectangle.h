@@ -24,6 +24,9 @@ class Rectangle : public Entity2D.h
     void set_width(float width);
     void set_height(float height);
     void set_size(float width, float height);
+    float get_width();
+    float get_height();
+    Color get_color();
 
     private:
     float width;
