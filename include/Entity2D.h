@@ -8,6 +8,9 @@
  * drawable objects for our programs. 
  * ***************************************************************************/
 
+#ifndef _ENTITY_2D_
+#define _ENTITY_2D_
+
 class Entity2D
 {
     //Virtual Functions
@@ -43,3 +46,5 @@ class Entity2D
     float y;
     float yaw;
 }
+
+#endif
