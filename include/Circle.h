@@ -4,19 +4,24 @@
  * Date: 09/16/14
  * Last Modified: 09/16/14
  * Description: Header file for the Circle class.
- * Inherits: Entity.h
+ * Inherits: Entity2D.h
  * Inherited by: 
  * ***************************************************************************/
+#include "Color.h"
+#include "Entity2D.h"
 
-#include "Entity.h"
-
-class Circle
+class Circle : public Entity2D
 {
-    Circle(float radius, float x, float y);
+    Circle(float radius = 0, float x = 0, float y = 0);
     ~Circle();
     void draw();
-    
+    void set_color(float r = 0, float g = 0, float b = 0);
+    float get_radius();
+    void set_radius();
+
+    protected:
+    float radius;
 
     private:
-    float radius;
+    Color color;
 };
