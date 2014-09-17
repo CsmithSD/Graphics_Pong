@@ -1,41 +1,40 @@
 /******************************************************************************
- * File: Entity.h
+ * File: Entity3D.h
  * Authors: Ian Carlson, Christopher Smith
  * Date: 09/16/14
  * Last Modified: 09/16/14
- * Description: Header file for the Entity class, the parent of all
- * drawable objects for our programs. 
+ * Description: Header file for the Entity3D class, the parent of all 
+ * 3D drawable objects for our programs. 
  * ***************************************************************************/
 
-class Entity
+class Entity3D
 {
     //Virtual Functions
     virtual void draw() = 0;
 
     //Functions
     public:
-    Entity(float x, float y, float z, float roll, float pitch, float yaw);
+    Entity3D(float x, float y, float z, float roll, float pitch, float yaw);
     ~Entity();
 
-    float get_x();
-    float get_y();
+    //Getters
     float get_z();
-    float get_yaw();
     float get_pitch();
     float get_roll();
-    void set_x(float x);
-    void set_y(float y);
+
+    //Setters
     void set_z(float z);
-    void set_yaw(float yaw);
     void set_pitch(float pitch);
     void set_roll(float roll);
 
+    //Movers
+    void translate3D(float x, float y, float z);
+    void rotate3D(float roll, float pitch, float yaw);
+    void move3D(float x, float y, float z, float roll, float pitch, float yaw);
+
     //Variables
     private:
-    float x;
-    float y;
     float z;
-    float yaw;
     float pitch;
     float roll;
 };
