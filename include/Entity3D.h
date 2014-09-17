@@ -4,17 +4,21 @@
  * Date: 09/16/14
  * Last Modified: 09/16/14
  * Description: Header file for the Entity3D class, the parent of all 
- * 3D drawable objects for our programs. 
+ * 3D drawable objects for our programs.
+ * Inherits From: Entity2D
+ * Inherited By: None (Yet)
  * ***************************************************************************/
+#include "Entity2D.h"
 
-class Entity3D
+class Entity3D : public Entity2D
 {
     //Virtual Functions
     virtual void draw() = 0;
 
     //Functions
     public:
-    Entity3D(float x, float y, float z, float roll, float pitch, float yaw);
+    Entity3D(float x = 0, float y = 0, float z = 0, 
+             float roll = 0, float pitch = 0, float yaw = 0);
     ~Entity();
 
     //Getters
@@ -30,7 +34,8 @@ class Entity3D
     //Movers
     void translate3D(float x, float y, float z);
     void rotate3D(float roll, float pitch, float yaw);
-    void move3D(float x, float y, float z, float roll, float pitch, float yaw);
+    void move3D(float x, float y, float z,
+                float roll, float pitch, float yaw);
 
     //Variables
     private:
