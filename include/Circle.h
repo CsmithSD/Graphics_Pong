@@ -20,7 +20,7 @@ class Circle : public Entity2D
     void draw();
     void set_color(float r = 0, float g = 0, float b = 0);
     float get_radius();
-    void set_radius();
+    void set_radius(float radius);
 
     protected:
     float radius;
