@@ -20,6 +20,8 @@ CXXFLAGS = -O -Wall
 # OpenGL/Mesa libraries for Linux:
 GL_LIBS = -lglut -lGLU -lGL -lm
 
+VPATH = src
+
 # OpenGL libraries for Windows (MinGW):
 # GL_LIBS = -lglut32 -lglu32 -lopengl32
 

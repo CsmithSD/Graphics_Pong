@@ -7,11 +7,9 @@
 * drawable objects for our programs.
 * ****************************************************************************/
 
-#include "../include/Entity.h"
-
-
+#include "../include/Entity2D.h"
 //Constructor
-Entity2D::Entity2D( float x = 0, float y = 0, float yaw = 0 ):
+Entity2D::Entity2D( float x, float y, float yaw):
     x( x ), y( y ), yaw( yaw )
 {
 
@@ -24,12 +22,12 @@ Entity2D::~Entity2D()
 }
 
 float Entity2D::get_x(){ return x; }
-float Entity::get_y(){ return y; }
-float Entity::get_yaw(){ return yaw; }
+float Entity2D::get_y(){ return y; }
+float Entity2D::get_yaw(){ return yaw; }
 
-void Entity2D::set_x( float x ){ this.x = x; }
-void Entity2D::set_y( float y ){ this.y = y; }
-void Entity2D::set_yaw( float yaw ){ this.yaw = yaw; }
+void Entity2D::set_x( float x ){ this->x = x; }
+void Entity2D::set_y( float y ){ this->y = y; }
+void Entity2D::set_yaw( float yaw ){ this->yaw = yaw; }
 
 void Entity2D::translate2D(float x, float y)
 {

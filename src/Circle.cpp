@@ -30,4 +30,4 @@ void Circle::set_color(float r, float g, float b)
 }
 
 float Circle::get_radius(){ return radius; }
-void Circle::set_radius( float radius){ this.radius = radius; }
+void Circle::set_radius( float radius){ this->radius = radius; }
