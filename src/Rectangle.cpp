@@ -31,6 +31,26 @@ void Rectangle::draw()
     glEnd();
 }
 
+void Rectangle::translate2D( float x, float y )
+{
+    this -> x += x;
+    this -> y += y;
+}
+
+void Rectangle::rotate2D( float yaw )
+{
+    this -> yaw += yaw;
+}
+
+void Rectangle::move2D( float x, float y, float yaw )
+{
+    this -> x += x;
+    this -> y += y;
+    this -> yaw += yaw;
+}
+
+
+
 Color Rectangle::get_color(){ return color; }
 
 void Rectangle::set_color(float r, float g, float b)

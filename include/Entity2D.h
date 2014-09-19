@@ -32,9 +32,9 @@ class Entity2D
     void set_yaw(float yaw);
 
     //Movement
-    void translate2D(float x, float y);
-    void rotate2D(float yaw);
-    void move2D(float x, float y, float yaw);
+    virtual void translate2D(float x, float y);
+    virtual void rotate2D(float yaw);
+    virtual void move2D(float x, float y, float yaw);
 
     private:
 

@@ -22,6 +22,35 @@ void Circle::draw()
 
 }
 
+void Circle::translate2D(float x, float y)
+{
+
+}
+
+void Circle::rotate2D( float yaw )
+{
+    this -> yaw += yaw;
+    while ( this -> yaw > 2 * M_PI)
+        this -> yaw -= 2 * M_PI;
+    while( this -> yaw < 0 )
+        this -> yaw += 2 * M_PI;
+
+}
+
+void Circle::move2D( float x, float y)
+{
+    this -> x += x;
+    this -> y += y;
+    this -> yaw = 0 + yaw;
+    while ( this -> yaw > 2 * M_PI)
+        this -> yaw -= 2 * M_PI;
+    while( this -> yaw < 0 )
+        this -> yaw += 2 * M_PI;
+
+
+}
+
+
 void Circle::set_color(float r, float g, float b)
 {
     color.r = r;

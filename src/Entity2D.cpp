@@ -29,18 +29,3 @@ void Entity2D::set_x( float x ){ this->x = x; }
 void Entity2D::set_y( float y ){ this->y = y; }
 void Entity2D::set_yaw( float yaw ){ this->yaw = yaw; }
 
-void Entity2D::translate2D(float x, float y)
-{
-
-}
-
-void Entity2D::rotate2D( float yaw )
-{
-
-}
-
-void Entity2D::move2D( float x, float y, float yaw )
-{
-    translate2D(x, y);
-    rotate2D(yaw);
-}

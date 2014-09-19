@@ -18,7 +18,13 @@ class Circle : public Entity2D
     public:
     Circle(float radius = 0, float x = 0, float y = 0, Color color = Color(1,1,1));
     ~Circle();
+    //Implemnted virtual functions
     void draw();
+    void translate2D(float x, float y);
+    void rotate2D(float yaw);
+    void move2D( float x, float y, float yaw );
+
+
     void set_color(float r = 0, float g = 0, float b = 0);
     float get_radius();
     void set_radius(float radius);
