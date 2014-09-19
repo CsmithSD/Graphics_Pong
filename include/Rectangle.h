@@ -17,21 +17,25 @@
 class Rectangle : public Entity2D
 {
     public:
-    Rectangle(float x = 0, float y = 0, float width = 0, float height = 0, Color color = Color(1,1,1));
-    ~Rectangle();
-    
-    void draw();
-    void set_color(float r = 0, float g = 0, float b = 0);
-    void set_width(float width);
-    void set_height(float height);
-    void set_size(float width, float height);
-    float get_width();
-    float get_height();
-    Color get_color();
+        Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color(1,1,1));
+        ~Rectangle();
+        //Implemented virtual functions 
+        void draw();
+        void translate2D( float x, float y);
+        void rotate2D( float yaw);
+        void move2D( float x, float y, float yaw );
+
+        void set_color(float r = 0, float g = 0, float b = 0);
+        void set_width(float width);
+        void set_height(float height);
+        void set_size(float width, float height);
+        float get_width();
+        float get_height();
+        Color get_color();
 
     private:
-    float width;
-    float height;
-    Color color;
+        float width;
+        float height;
+        Color color;
 };
 #endif
