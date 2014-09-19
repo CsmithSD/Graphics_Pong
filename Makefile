@@ -31,14 +31,10 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 # MAKE allows the use of "wildcards", to make writing compilation instructions
 # a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
 
-all:    OpenGLDemo
+all:    Pong
 
 # specific targets
 Pong:	Entity2D.o Circle.o Rectangle.o Color.o
-	$(LINK) -o $@ $^ $(GL_LIBS)
-
-# typical target entry, builds "myprog" from file1.cpp, file2.cpp, file3.cpp
-myprog:	file1.o file2.o file3.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file
