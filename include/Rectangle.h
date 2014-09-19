@@ -21,7 +21,7 @@ class Rectangle : public Entity2D
     ~Rectangle();
     
     void draw();
-    void set_color(float r = 0; float g = 0; float b = 0);
+    void set_color(float r = 0, float g = 0, float b = 0);
     void set_width(float width);
     void set_height(float height);
     void set_size(float width, float height);
