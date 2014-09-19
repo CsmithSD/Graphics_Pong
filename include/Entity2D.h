@@ -41,7 +41,7 @@ class Entity2D
     //Variables
     public:
     
-    private:
+    protected:
     float x;
     float y;
     float yaw;
