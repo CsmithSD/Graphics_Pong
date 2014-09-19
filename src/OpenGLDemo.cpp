@@ -15,7 +15,8 @@ using namespace std;
 const int EscapeKey = 27;
 
 //global list of Drawable objects
-vector<Entity2D> Entity_List;
+Rectangle my_rect( 100,100,500,500 );
+Circle my_circ( 30,10 ,10 );
 
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 const float ViewplaneSize = 1000.0;
@@ -39,12 +40,6 @@ void initOpenGL( void );
 // main() function
 int main( int argc, char *argv[] )
 {
-
-    Rectangle my_rect( 10, 10, 50, 50 );
-    Circle my_circ( 30, 10, 10 );
-
-    Entity_List.push_back( my_rect );
-    Entity_List.push_back( my_circ );
 
     // perform various OpenGL initializations
     glutInit( &argc, argv );
@@ -87,9 +82,7 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-
-    for( auto i : Entity_List )
-        i.draw();
+    my_rect.draw();
 
     // flush graphical output
     glFlush();
