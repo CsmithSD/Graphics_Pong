@@ -126,9 +126,9 @@ void reshape( int w, int h )
     glMatrixMode( GL_PROJECTION );      // use an orthographic projection
     glLoadIdentity();                   // initialize transformation matrix
     if ( w > h )                        // use width:height aspect ratio to specify view extents
-        gluOrtho2D( -ViewplaneSize * w / h, ViewplaneSize * w / h, -ViewplaneSize, ViewplaneSize );
+        gluOrtho2D( 0, ViewplaneSize * w / h, 0, ViewplaneSize );
     else
-        gluOrtho2D( -ViewplaneSize, ViewplaneSize, -ViewplaneSize * h / w, ViewplaneSize * h / w );
+        gluOrtho2D( 0, ViewplaneSize, 0, ViewplaneSize * h / w );
     glViewport( 0, 0, w, h );           // adjust viewport to new window
 }
 
