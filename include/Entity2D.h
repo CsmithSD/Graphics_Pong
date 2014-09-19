@@ -10,7 +10,7 @@
 
 #ifndef _ENTITY_2D_
 #define _ENTITY_2D_
-
+#include "Point.h"
 class Entity2D
 {
     public:
@@ -18,7 +18,7 @@ class Entity2D
     virtual void draw() = 0;
 
     //Functions
-    Entity2D(float x = 0, float y = 0, float yaw = 0);
+    Entity2D(Point2D point = Point2D( ), Velocity2D vel = Velocity2D() );
     ~Entity2D();
 
     //Getters
@@ -35,16 +35,18 @@ class Entity2D
     virtual void translate2D(float x, float y) = 0;
     virtual void rotate2D(float yaw) = 0;
     virtual void move2D(float x, float y, float yaw) = 0;
-
+    virtual void animate(float timestep ) = 0;
     private:
 
     //Variables
     public:
     
     protected:
-    float x;
-    float y;
+    Point2D point;
     float yaw;
+    float x_vel;
+    float y_vel;
+    float yaw_vel;
 };
 
 #endif

@@ -17,7 +17,7 @@
 class Circle : public Entity2D
 {
     public:
-    Circle(float x = 0, float y = 0, float radius = 0, Color color = Color(1,1,1));
+    Circle(Point2D point = Point2D(), float yaw, float radius = 0, Color color = Color(1,1,1) Velocity2D velocity = Velocity2D() );
     ~Circle();
     //Implemnted virtual functions
     void draw();
