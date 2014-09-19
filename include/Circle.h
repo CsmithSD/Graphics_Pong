@@ -12,7 +12,7 @@
 
 #include "Color.h"
 #include "Entity2D.h"
-
+#include <GL/freeglut.h>
 class Circle : public Entity2D
 {
     public:

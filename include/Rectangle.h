@@ -10,7 +10,7 @@
 
 #ifndef _RECTANGLE_H_
 #define RECTANGLE_H_
-
+#include <GL/freeglut.h>
 #include "Color.h"
 #include "Entity2D.h"
 
