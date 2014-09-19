@@ -15,6 +15,7 @@
 
 class Circle : public Entity2D
 {
+    public:
     Circle(float radius = 0, float x = 0, float y = 0);
     ~Circle();
     void draw();
