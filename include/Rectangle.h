@@ -16,7 +16,7 @@
 
 class Rectangle : public Entity2D.h
 {
-    Rectangle(float width = 0, float height = 0, float x = 0, float y = 0);
+    Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color());
     ~Rectangle();
     
     void draw();

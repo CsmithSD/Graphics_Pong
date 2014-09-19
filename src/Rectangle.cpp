@@ -10,12 +10,12 @@
 #include "../include/Rectangle.h"
 
 
-Rectangle::Rectangle( float width, float height, float x, float y ): width(width)
-                                                                     height(height)
-                                                                     x(x)
-                                                                     y(y)
+Rectangle::Rectangle( float width, float height, float x, float y, Color color ):
+                      width(width), height(height), x(x), y(y), color(color)
 {
-
+    color.r = 1;
+    color.g = 1;
+    color.b = 1;
 }
 Rectangle::~Rectangle()
 {
@@ -24,7 +24,13 @@ Rectangle::~Rectangle()
 
 void Rectangle::draw()
 {
-
+    glColor3f(color.r, color.g, color.b);
+        glBegin( GL_LINE_LOOP );
+        glVertex2f( x, y );
+        glVertex2f( x+width, y );
+        glVertex2f( x+width, y+width );
+        glVertex2f( x, y+width );
+    glEnd();
 }
 
 Color Rectangle::get_color(){ return color; }

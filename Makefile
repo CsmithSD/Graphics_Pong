@@ -34,10 +34,7 @@ GL_LIBS = -lglut -lGLU -lGL -lm
 all:    OpenGLDemo
 
 # specific targets
-OpenGLDemo:	OpenGLDemo.o
-	$(LINK) -o $@ $^ $(GL_LIBS)
-
-bmpDisplay:	bmpDisplay.o bmpRead.o
+Pong:	Entity2D.o Circle.o Rectangle.o Color.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # typical target entry, builds "myprog" from file1.cpp, file2.cpp, file3.cpp
