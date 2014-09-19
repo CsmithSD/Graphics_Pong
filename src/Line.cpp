@@ -47,9 +47,9 @@ void Line::rotate2D( float yaw )
 {
     this -> yaw += yaw;
     while(this -> yaw < 0 )
-        yaw +=  ( M_PI << 1 );
-    while( this -> yaw >  ( M_PI << 1 ) )
-        yaw -= ( M_PI << 1 )
+        yaw +=  ( M_PI *2 );
+    while( this -> yaw >  ( M_PI * 2 ) )
+        yaw -= ( M_PI * 2  )
 }
 
 void Line::move2D( float x, float y, float yaw );
@@ -62,9 +62,9 @@ void Line::move2D( float x, float y, float yaw );
 
     this -> yaw += yaw;
     while(this -> yaw < 0 )
-        yaw +=  ( M_PI << 1 );
-    while( this -> yaw >  ( M_PI << 1 ) )
-        yaw -= ( M_PI << 1 )
+        yaw +=  ( M_PI * 2 );
+    while( this -> yaw >  ( M_PI * 2 ) )
+        yaw -= ( M_PI * 2 )
 
 }
 
@@ -86,9 +86,9 @@ void Line::move2Dp1( float x, float y, float yaw)
     p1.y += y;
     this -> yaw += yaw;
     while(this -> yaw < 0 )
-        yaw +=  ( M_PI << 1 );
-    while( this -> yaw >  ( M_PI << 1 ) )
-        yaw -= ( M_PI << 1 )
+        yaw +=  ( M_PI * 2 );
+    while( this -> yaw >  ( M_PI * 2 ) )
+        yaw -= ( M_PI * 2 )
 
 }
 
@@ -98,8 +98,8 @@ void Line::move2Dp2( float x, floaty, float yaw)
     p2.y += y;
     this -> yaw += yaw;
     while(this -> yaw < 0 )
-        yaw +=  ( M_PI << 1 );
-    while( this -> yaw >  ( M_PI << 1 ) )
-        yaw -= ( M_PI << 1 )
+        yaw +=  ( M_PI * 2  );
+    while( this -> yaw >  ( M_PI * 2 ) )
+        yaw -= ( M_PI * 2 )
 
 }

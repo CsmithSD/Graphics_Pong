@@ -1,7 +1,7 @@
 #include "Entity2D.h"
 #include "Point.h"
 #include "Color.h"
-
+#include <math.h>
 class Line : public Entity2D
 {
     public:
