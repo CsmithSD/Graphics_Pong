@@ -14,9 +14,10 @@
 #include "Color.h"
 #include "Entity2D.h"
 
-class Rectangle : public Entity2D.h
+class Rectangle : public Entity2D
 {
-    Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color());
+    public:
+    Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color(1,1,1));
     ~Rectangle();
     
     void draw();
