@@ -4,6 +4,7 @@
 #include "../include/Entity2D.h"
 
 // include files c/c++ libraries
+#include <ctime>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -29,8 +30,10 @@ int ScreenHeight = 500;
 void display( void );
 void reshape( int w, int h );
 void keyboard( unsigned char key, int x, int y );
+void special_keyboard( int key, int x, int y);
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
+void idle();
 
 // useful graphics function prototypes
 void initOpenGL( void );
@@ -57,7 +60,7 @@ int main( int argc, char *argv[] )
 // various commands to initialize OpenGL and GLUT
 void initOpenGL( void )
 {
-    glutInitDisplayMode( GLUT_RGBA | GLUT_SINGLE ); // 32-bit graphics and single buffering
+    glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE ); // 32-bit graphics and single buffering
 
     glutInitWindowSize( ScreenWidth, ScreenHeight );    // initial window size
     glutInitWindowPosition( 100, 50 );          // initial window position
@@ -69,7 +72,9 @@ void initOpenGL( void )
     glutDisplayFunc( display );             // how to redisplay window
     glutReshapeFunc( reshape );             // how to resize window
     glutKeyboardFunc( keyboard );           // how to handle key presses
+    glutSpecialFunc( special_keyboard);     // how to handle arrow keys
     glutMouseFunc( mouseclick );            // how to handle mouse events
+    glutIdleFunc( idle );
 }
 
 /******************************************************************************/
@@ -83,9 +88,28 @@ void display( void )
     glClear( GL_COLOR_BUFFER_BIT );
 
     my_rect.draw();
+    //for(int i = 0; i < num_entities; i++)
+    //  entities[i].draw();
 
     // flush graphical output
+    glutSwapBuffers();
     glFlush();
+}
+
+void idle()
+{
+    //We want the screen to update as quickly as possible, but
+    //scale the motion to the amount of time between frames.
+    //We define "Normal" as 25 frames per second and scale based on that
+    static clock_t last_time = clock();
+    clock_t new_time = clock();
+    clock_t delta = new_time - last_time;
+    float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
+
+    //for(int i = 0; i < num_entities; i++)
+    //  entities[i].animate();
+    last_time = new_time;
+    glutPostRedisplay();
 }
 
 /******************************************************************************/
@@ -110,6 +134,32 @@ void reshape( int w, int h )
 
 /******************************************************************************/
 
+void special_keyboard( int key, int x, int y)
+{
+    y = ScreenHeight -y;
+    cerr << "Special Keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
+
+    switch(key)
+    {
+        case GLUT_KEY_LEFT:
+
+        break;
+
+        case GLUT_KEY_RIGHT:
+
+        break;
+
+        case GLUT_KEY_UP:
+
+        break;
+
+        case GLUT_KEY_DOWN:
+
+        break;
+
+    }
+}
+
 // callback function that tells OpenGL how to handle keystrokes
 void keyboard( unsigned char key, int x, int y )
 {
@@ -124,6 +174,33 @@ void keyboard( unsigned char key, int x, int y )
         case EscapeKey:
             exit( 0 );
             break;
+
+        case 'a':
+        case 'A':
+
+        break;
+
+        case 's':
+        case 'S':
+
+        break;
+
+        case 'd':
+        case 'D':
+
+        break;
+
+        case 'w':
+        case 'W':
+
+        break;
+
+        case ' ':
+        case 'p':
+        case 'P':
+
+        break;
+
 
         // anything else redraws window
         default:

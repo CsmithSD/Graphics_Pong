@@ -17,7 +17,7 @@
 class Rectangle : public Entity2D
 {
     public:
-    Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color(1,1,1));
+    Rectangle(float x = 0, float y = 0, float width = 0, float height = 0, Color color = Color(1,1,1));
     ~Rectangle();
     
     void draw();
