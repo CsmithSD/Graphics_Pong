@@ -10,6 +10,7 @@
 #ifndef _CIRCLE_H_
 #define _CIRCLE_H_
 
+#include <math.h>
 #include "Color.h"
 #include "Entity2D.h"
 #include <GL/freeglut.h>

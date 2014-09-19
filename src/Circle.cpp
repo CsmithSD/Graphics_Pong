@@ -37,7 +37,7 @@ void Circle::rotate2D( float yaw )
 
 }
 
-void Circle::move2D( float x, float y)
+void Circle::move2D( float x, float y, float yaw)
 {
     this -> x += x;
     this -> y += y;
