@@ -11,11 +11,9 @@
 
 
 Rectangle::Rectangle( float width, float height, float x, float y, Color color ):
-                      width(width), height(height), x(x), y(y), color(color)
+                      Entity2D( x, y ), width(width), height(height), color(color)
 {
-    color.r = 1;
-    color.g = 1;
-    color.b = 1;
+
 }
 Rectangle::~Rectangle()
 {
