@@ -13,11 +13,11 @@
 
 class Entity2D
 {
+    public:
     //Virtual Functions
     virtual void draw() = 0;
 
     //Functions
-    public:
     Entity2D(float x = 0, float y = 0, float yaw = 0);
     ~Entity2D();
 
@@ -45,6 +45,6 @@ class Entity2D
     float x;
     float y;
     float yaw;
-}
+};
 
 #endif
