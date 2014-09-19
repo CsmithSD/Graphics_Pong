@@ -40,11 +40,11 @@ void Rectangle::set_color(float r, float g, float b)
     color.b = b;
 }
 
-void Rectangle::set_width(float width){ this.width = width;}
-void Rectangle::set_height(float height){ this.height = height;}
+void Rectangle::set_width(float width){ this->width = width;}
+void Rectangle::set_height(float height){ this->height = height;}
 
 void Rectangle::set_size(float width, float height)
 {
-    this.width = width;
-    this.height = height;
+    this->width = width;
+    this->height = height;
 }
