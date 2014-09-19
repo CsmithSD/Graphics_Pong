@@ -10,7 +10,7 @@
 #include "../include/Rectangle.h"
 
 
-Rectangle::Rectangle( float width, float height, float x, float y, Color color ):
+Rectangle::Rectangle( float x, float y, float width, float height, Color color ):
                       Entity2D( x, y ), width(width), height(height), color(color)
 {
 
