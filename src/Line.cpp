@@ -34,7 +34,7 @@ void Line::get_p2()
     return p2;
 }
 
-void Line::Translate2D( float x, float y )
+void Line::translate2D( float x, float y )
 {
     p1.x += x;
     p2.x += x;
@@ -56,5 +56,31 @@ void Line::move2D( float x, float y, float yaw );
     p1.y += y;
     p2.y += y;
 
+    this -> yaw += yaw;
+}
+
+void Line::translate2Dp1(float x, float y)
+{
+    p1.x += x;
+    p1.y += y;
+}
+
+void Line::translate2Dp2(float x, float y)
+{
+    p2.x += x;
+    p2.y += y;
+}
+
+void Line::move2Dp1( float x, float y, float yaw)
+{
+    p1.x += x;
+    p1.y += y;
+    this -> yaw += yaw;
+}
+
+void Line::move2Dp2( float x, floaty, float yaw)
+{
+    p2.x += x;
+    p2.y += y;
     this -> yaw += yaw;
 }
