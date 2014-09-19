@@ -40,6 +40,10 @@ void Rectangle::translate2D( float x, float y )
 void Rectangle::rotate2D( float yaw )
 {
     this -> yaw += yaw;
+    while(this -> yaw < 0 )
+        yaw +=  ( M_PI << 1 );
+    while( this -> yaw >  ( M_PI << 1 ) )
+        yaw -= ( M_PI << 1 )
 }
 
 void Rectangle::move2D( float x, float y, float yaw )
@@ -47,6 +51,11 @@ void Rectangle::move2D( float x, float y, float yaw )
     this -> x += x;
     this -> y += y;
     this -> yaw += yaw;
+    while(this -> yaw < 0 )
+        yaw +=  ( M_PI << 1 );
+    while( this -> yaw >  ( M_PI << 1 ) )
+        yaw -= ( M_PI << 1 )
+
 }
 
 

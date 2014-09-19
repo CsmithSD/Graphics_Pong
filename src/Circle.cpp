@@ -24,7 +24,8 @@ void Circle::draw()
 
 void Circle::translate2D(float x, float y)
 {
-
+    this -> x += x;
+    this -> y += y;
 }
 
 void Circle::rotate2D( float yaw )
