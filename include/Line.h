@@ -1,11 +1,11 @@
 #include "Entity2D.h"
 #include "Point.h"
 #include "Color.h"
-
+#include <math.h>
 class Line : public Entity2D
 {
     public:
-        line( Point p1 = Point(), Point p2 = Point(), Color color = Color( 1,1,1 ) );
+        line( Point2D p1 = Point2D(), Point2D p2 = Point2D(), Color color = Color( 1,1,1 ), Velocity2D vel = Veocity2D );
         ~line();
 
         void draw();
@@ -28,7 +28,9 @@ class Line : public Entity2D
         float move2Dp2(float x, float y, float yaw);
 
     protected:
-        Point p1;
-        Point p2;
+        Point2D p1;
+        Point2D p2;
+        Point2D midpoint;
         Color color;
+        void calculate_midpoint();
 }

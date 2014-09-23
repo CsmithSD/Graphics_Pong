@@ -10,6 +10,7 @@
 
 #ifndef _RECTANGLE_H_
 #define RECTANGLE_H_
+#include <math.h>
 #include <GL/freeglut.h>
 #include "Color.h"
 #include "Entity2D.h"
@@ -17,7 +18,7 @@
 class Rectangle : public Entity2D
 {
     public:
-        Rectangle(float width = 0, float height = 0, float x = 0, float y = 0, Color color = Color(1,1,1));
+        Rectangle(float width = 0, float height = 0, Point2D point = Point2D(),  Color color = Color(1,1,1), Velocity2D vel = Velocity2D());
         ~Rectangle();
         //Implemented virtual functions 
         void draw();
