@@ -9,8 +9,8 @@
 
 #include "../include/Circle.h"
 
-Circle::Circle(float x, float y,float radius, Color color):
-        Entity2D(x,y),radius(radius),color(color)
+Circle::Circle(Point2D p, float radius, Color color, Velocity2D vel)
+        Entity2D(p, vel), radius(radus), color(color)
 {
 
 }
@@ -24,31 +24,24 @@ void Circle::draw()
 
 void Circle::translate2D(float x, float y)
 {
-    this -> x += x;
-    this -> y += y;
+    set_x(get_x()+x);
+    set_y(get_y()+y);
 }
 
 void Circle::rotate2D( float yaw )
 {
-    this -> yaw += yaw;
-    while ( this -> yaw > 2 * M_PI)
-        this -> yaw -= 2 * M_PI;
-    while( this -> yaw < 0 )
-        this -> yaw += 2 * M_PI;
-
+    float new_yaw = get_yaw() + yaw;
+    while(new_yaw > 2 * M_PI)
+        new_yaw -= 2 * M_PI;
+    while(new_yaw < 0 )
+        new_yaw += 2 * M_PI;
+    set_yaw(new_yaw);
 }
 
 void Circle::move2D( float x, float y, float yaw)
 {
-    this -> x += x;
-    this -> y += y;
-    this -> yaw = 0 + yaw;
-    while ( this -> yaw > 2 * M_PI)
-        this -> yaw -= 2 * M_PI;
-    while( this -> yaw < 0 )
-        this -> yaw += 2 * M_PI;
-
-
+    translate2D(x,y);
+    rotate2D(yaw);
 }
 
 

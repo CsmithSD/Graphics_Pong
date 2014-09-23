@@ -9,8 +9,7 @@
 
 #include "../include/Entity2D.h"
 //Constructor
-Entity2D::Entity2D( float x, float y, float yaw):
-    x( x ), y( y ), yaw( yaw )
+Entity2D::Entity2D( Point2D point, Velocity2D vel ):point(point), vel(vel)
 {
 
 }
