@@ -15,9 +15,6 @@ using namespace std;
 // keypresses
 const int EscapeKey = 27;
 
-//global list of Drawable objects
-Rectangle my_rect( 100,100,500,500 );
-Circle my_circ( 30,10 ,10 );
 
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 const float ViewplaneSize = 1000.0;
@@ -87,7 +84,6 @@ void display( void )
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
 
-    my_rect.draw();
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].draw();
 

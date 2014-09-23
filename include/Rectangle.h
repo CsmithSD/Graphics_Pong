@@ -14,11 +14,14 @@
 #include <GL/freeglut.h>
 #include "Color.h"
 #include "Entity2D.h"
+#include "Velocity2D.h"
+#include "Point2D.h"
 
 class Rectangle : public Entity2D
 {
     public:
-        Rectangle(float width = 0, float height = 0, Point2D point = Point2D(),  Color color = Color(1,1,1), Velocity2D vel = Velocity2D());
+        Rectangle(Point2D point = Point2D(), float width = 0, float height = 0,  Color color = Color(1,1,1), Velocity2D vel = Velocity2D());
+        
         ~Rectangle();
         //Implemented virtual functions 
         void draw();

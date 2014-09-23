@@ -9,8 +9,8 @@
 
 #include "../include/Circle.h"
 
-Circle::Circle(Point2D p, float radius, Color color, Velocity2D vel)
-        Entity2D(p, vel), radius(radus), color(color)
+Circle::Circle(Point2D p, float radius, Color color, Velocity2D vel):
+         Entity2D(p, vel), radius(radius), color(color)
 {
 
 }

@@ -10,7 +10,8 @@
 
 #ifndef _ENTITY_2D_
 #define _ENTITY_2D_
-#include "Point.h"
+#include "Point2D.h"
+#include "Velocity2D.h"
 class Entity2D
 {
     public:
@@ -43,10 +44,8 @@ class Entity2D
     
     protected:
     Point2D point;
-    float yaw;
-    float x_vel;
-    float y_vel;
-    float yaw_vel;
+    Velocity2D vel;
+    
 };
 
 #endif

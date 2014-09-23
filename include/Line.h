@@ -1,3 +1,6 @@
+#ifndef _LINE_H_
+#define _LINE_H_
+
 #include "Entity2D.h"
 #include "Point.h"
 #include "Color.h"
@@ -34,3 +37,5 @@ class Line : public Entity2D
         Color color;
         void calculate_midpoint();
 }
+
+#endif

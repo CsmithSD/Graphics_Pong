@@ -10,8 +10,8 @@
 #include "../include/Rectangle.h"
 
 
-Rectangle::Rectangle( float x, float y, float width, float height, Color color ):
-                      Entity2D( x, y ), width(width), height(height), color(color)
+Rectangle::Rectangle( Point2D point, float width, float height, Color color, Velocity2D vel):
+                      Entity2D( point, vel ), width(width), height(height), color(color)
 {
 
 }
@@ -24,37 +24,37 @@ void Rectangle::draw()
 {
     glColor3f(color.r, color.g, color.b);
         glBegin( GL_LINE_LOOP );
-        glVertex2f( x, y );
-        glVertex2f( x+width, y );
-        glVertex2f( x+width, y+width );
-        glVertex2f( x, y+width );
+        glVertex2f( point.x, point.y );
+        glVertex2f( point.x+width, point.y );
+        glVertex2f( point.x+width, point.y+width );
+        glVertex2f( point.x, point.y+width );
     glEnd();
 }
 
 void Rectangle::translate2D( float x, float y )
 {
-    this -> x += x;
-    this -> y += y;
+    point.x += x;
+    point.y += y;
 }
 
 void Rectangle::rotate2D( float yaw )
 {
-    this -> yaw += yaw;
-    while(this -> yaw < 0 )
-        yaw +=  ( M_PI * 2 );
-    while( this -> yaw >  ( M_PI * 2 ) )
-        yaw -= ( M_PI * 2 );
+    point.yaw += yaw;
+    while(point.yaw < 0 )
+        point.yaw +=  ( M_PI * 2 );
+    while( point.yaw >  ( M_PI * 2 ) )
+        point.yaw -= ( M_PI * 2 );
 }
 
 void Rectangle::move2D( float x, float y, float yaw )
 {
-    this -> x += x;
-    this -> y += y;
-    this -> yaw += yaw;
-    while(this -> yaw < 0 )
-        yaw +=  ( M_PI * 2 );
-    while( this -> yaw >  ( M_PI *2  ) )
-        yaw -= ( M_PI *2  );
+    point.x += x;
+    point.y += y;
+    point.yaw += yaw;
+    while(point.yaw < 0 )
+        point.yaw +=  ( M_PI * 2 );
+    while( point.yaw >  ( M_PI *2  ) )
+        point.yaw -= ( M_PI *2  );
 
 }
 
