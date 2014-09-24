@@ -36,7 +36,7 @@ VPATH = src
 all:    Pong
 
 # specific targets
-Pong:	Pong.o Entity2D.o Circle.o Rectangle.o Color.o
+Pong:	Pong.o Entity2D.o Circle.o Rectangle.o Color.o FilledRectangle.o FilledCircle.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file

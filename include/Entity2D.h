@@ -19,33 +19,25 @@ class Entity2D
     virtual void draw() = 0;
 
     //Functions
-    Entity2D(Point2D point = Point2D( ), Velocity2D vel = Velocity2D() );
+    Entity2D(Point2D point = Point2D(), Velocity2D vel = Velocity2D() );
     ~Entity2D();
 
     //Getters
     float get_x();
     float get_y();
     float get_yaw();
-
-    //Setters
-    void set_x(float x);
-    void set_y(float y);
-    void set_yaw(float yaw);
+    Point2D get_point();
+    Velocity2D get_velocity();
 
     //Movement
     virtual void translate2D(float x, float y) = 0;
     virtual void rotate2D(float yaw) = 0;
     virtual void move2D(float x, float y, float yaw) = 0;
     virtual void animate(float timestep ) = 0;
-    private:
 
-    //Variables
-    public:
-    
     protected:
     Point2D point;
     Velocity2D vel;
-    
 };
 
 #endif

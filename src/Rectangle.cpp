@@ -22,12 +22,42 @@ Rectangle::~Rectangle()
 
 void Rectangle::draw()
 {
+    float x,y,rotated_x,rotated_y;
+    //Precalculate sin and cos, 1/2 w and h
+    float c = cos(point.yaw);
+    float s = sin(point.yaw);
+    float w = 0.5*width;
+    float h = 0.5*height;
     glColor3f(color.r, color.g, color.b);
         glBegin( GL_LINE_LOOP );
-        glVertex2f( point.x, point.y );
-        glVertex2f( point.x+width, point.y );
-        glVertex2f( point.x+width, point.y+width );
-        glVertex2f( point.x, point.y+width );
+
+        //Bottom Left Corner
+        x = point.x - w;
+        y = point.y - h;
+        rotated_x = x*c - y*s;
+        rotated_y = x*s + y*c;
+        glVertex2f( rotated_x, rotated_y );
+
+        //Top Left Corner
+        //x = point.x-w; - don't need to recalculate
+        y = point.y + h;
+        rotated_x = x*c - y*s;
+        rotated_y = x*s + y*c;
+        glVertex2f( rotated_x, rotated_y );
+
+        //Top Right Corner
+        x = point.x+w;
+        //y = point.y + h; - don't need to recalculate
+        rotated_x = x*c - y*s;
+        rotated_y = x*s + y*c;
+        glVertex2f( rotated_x, rotated_y );
+
+        //Bottom Right Corner
+        //x = point.x + w; - don't need to recalculate
+        y = point.y - h;
+        rotated_x = x*c - y*s;
+        rotated_y = x*s + y*c;
+        glVertex2f( rotated_x, rotated_y );
     glEnd();
 }
 
@@ -48,17 +78,10 @@ void Rectangle::rotate2D( float yaw )
 
 void Rectangle::move2D( float x, float y, float yaw )
 {
-    point.x += x;
-    point.y += y;
-    point.yaw += yaw;
-    while(point.yaw < 0 )
-        point.yaw +=  ( M_PI * 2 );
-    while( point.yaw >  ( M_PI *2  ) )
-        point.yaw -= ( M_PI *2  );
-
+    point.x = x;
+    point.y = y;
+    point.yaw = yaw;
 }
-
-
 
 Color Rectangle::get_color(){ return color; }
 

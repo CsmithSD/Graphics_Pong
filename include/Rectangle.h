@@ -21,8 +21,8 @@ class Rectangle : public Entity2D
 {
     public:
         Rectangle(Point2D point = Point2D(), float width = 0, float height = 0,  Color color = Color(1,1,1), Velocity2D vel = Velocity2D());
-        
         ~Rectangle();
+        
         //Implemented virtual functions 
         void draw();
         void translate2D( float x, float y);
@@ -37,7 +37,7 @@ class Rectangle : public Entity2D
         float get_height();
         Color get_color();
 
-    private:
+    protected:
         float width;
         float height;
         Color color;

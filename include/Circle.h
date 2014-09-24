@@ -25,11 +25,10 @@ class Circle : public Entity2D
     void rotate2D(float yaw);
     void move2D( float x, float y, float yaw );
 
-
+    Color get_color();
     void set_color(float r = 0, float g = 0, float b = 0);
     float get_radius();
     void set_radius(float radius);
-    Color get_color();
 
     protected:
     float radius;

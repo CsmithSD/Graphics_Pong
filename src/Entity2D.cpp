@@ -11,20 +11,15 @@
 //Constructor
 Entity2D::Entity2D( Point2D point, Velocity2D vel ):point(point), vel(vel)
 {
-
 }
 
-//Deconstructor
+//Destructor
 Entity2D::~Entity2D()
 {
-
 }
 
 float Entity2D::get_x(){ return point.x; }
 float Entity2D::get_y(){ return point.y; }
 float Entity2D::get_yaw(){ return point.yaw; }
-
-void Entity2D::set_x( float x ){ this->point.x = x; }
-void Entity2D::set_y( float y ){ this->point.y = y; }
-void Entity2D::set_yaw( float yaw ){ this->point.yaw = yaw; }
-
+Point2D Entity2D::get_point(){ return point;}
+Velocity2D Entity2D::get_velocity(){return vel;}

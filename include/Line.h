@@ -33,7 +33,6 @@ class Line : public Entity2D
     protected:
         Point2D p1;
         Point2D p2;
-        Point2D midpoint;
         Color color;
         void calculate_midpoint();
 }
