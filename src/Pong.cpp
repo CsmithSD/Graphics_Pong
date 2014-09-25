@@ -13,6 +13,8 @@ using namespace std;
 #define PADDLE_HEIGHT 15
 #define GAME_HEIGHT 100
 #define GAME_WIDTH 100
+#define PADDLE_SPEED 2
+#define BALL_START_SPEED 4
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
 
@@ -149,7 +151,7 @@ void special_keyboard( int key, int x, int y)
     switch(key)
     {
         case GLUT_KEY_LEFT:
-
+            right_paddle.set_velocity(-PADDLE_SPEED,
         break;
 
         case GLUT_KEY_RIGHT:
@@ -164,6 +166,36 @@ void special_keyboard( int key, int x, int y)
 
         break;
 
+    }
+}
+
+void keyboardUp(unsigned char key, int x, int y)
+{
+    y = ScreenHeight -y;
+    cerr << "Special KeyRelease: " << key << " (" << int(key) << ") at (" << x << "," << y << ")\n";
+
+    Velocity2D left = left_paddle.get_velocity();
+    switch(key)
+    {
+        case 'a':
+        case 'A':
+            left_paddle.set_velocity(left.x_vel+PADDLE_SPEED,left.y_vel,left.yaw_vel);
+        break;
+
+        case 's':
+        case 'S':
+            left_paddle.set_velocity(left.x_vel,left.y_vel+PADDLE_SPEED,left.yaw_vel);
+        break;
+
+        case 'd':
+        case 'D':
+
+        break;
+
+        case 'w':
+        case 'W':
+
+        break;
     }
 }
 
