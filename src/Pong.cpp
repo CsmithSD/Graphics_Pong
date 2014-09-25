@@ -9,23 +9,26 @@
 #include <vector>
 using namespace std;
 
+#define PADDLE_WIDTH 2
+#define PADDLE_HEIGHT 15
+#define GAME_HEIGHT 100
+#define GAME_WIDTH 100
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
 
 // keypresses
 const int EscapeKey = 27;
-
-//TEST PADDLE
-Point2D left_start(250,250,-976);
-Paddle Left_paddle(left_start, 100, 50);
-Ball ball(left_start, 40);
-
 // world coordinate window extents: -1000 to +1000 in smaller dimension
-const float ViewplaneSize = 1000.0;
+
+Ball ball(Point2D(GAME_WIDTH/2.0,GAME_HEIGHT/2.0),1,Color(1,0,0));
+Paddle left_paddle(Point2D(PADDLE_WIDTH,GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
+Paddle right_paddle(Point2D(GAME_WIDTH - PADDLE_WIDTH, GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
+//Game state variable
+int GAMESTATE = 0;
 
 // global vars
-int ScreenWidth  = 500;
-int ScreenHeight = 500;
+int ScreenWidth  = 600;
+int ScreenHeight = 600;
 
 // OpenGL callback function prototypes
 void display( void );
@@ -44,7 +47,9 @@ void initOpenGL( void );
 // main() function
 int main( int argc, char *argv[] )
 {
-    ball.move2D(300,300,0);
+    left_paddle.set_limits(0,GAME_WIDTH/2.0,0,GAME_HEIGHT);
+    right_paddle.set_limits(GAME_WIDTH/2.0,GAME_WIDTH,0,GAME_HEIGHT);
+    ball.set_limits(-ball.get_radius(),GAME_WIDTH+ball.get_radius(),0,GAME_HEIGHT);
     // perform various OpenGL initializations
     glutInit( &argc, argv );
     initOpenGL();
@@ -87,10 +92,9 @@ void display( void )
 {
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
-    ball.set_fill_color(1,1,1);
     ball.draw();
-    Left_paddle.set_color(1,0,1);
-    Left_paddle.draw();
+    left_paddle.draw();
+    right_paddle.draw();
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].draw();
 
@@ -108,7 +112,6 @@ void idle()
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
     float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
-    Left_paddle.animate(scale_factor);
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].animate();
     last_time = new_time;
@@ -130,9 +133,9 @@ void reshape( int w, int h )
     glMatrixMode( GL_PROJECTION );      // use an orthographic projection
     glLoadIdentity();                   // initialize transformation matrix
     if ( w > h )                        // use width:height aspect ratio to specify view extents
-        gluOrtho2D( 0, ViewplaneSize * w / h, 0, ViewplaneSize );
+        gluOrtho2D( 0, GAME_WIDTH * w / h, 0, GAME_HEIGHT );
     else
-        gluOrtho2D( 0, ViewplaneSize, 0, ViewplaneSize * h / w );
+        gluOrtho2D( 0, GAME_WIDTH, 0, GAME_HEIGHT * h / w );
     glViewport( 0, 0, w, h );           // adjust viewport to new window
 }
 

@@ -9,9 +9,13 @@ class Ball:public FilledCircle
         Ball(Point2D point = Point2D(), float radius = 0, Color color = Color(1,1,1), Velocity2D vel = Velocity2D() );
         ~Ball();
 
-        void animate(float timestamp);
-
+    void animate(float timestamp);
+    void set_limits(float left, float right, float bottom, float top);
     private:
+    float left_limit;
+    float right_limit;
+    float bottom_limit;
+    float top_limit;
 };
 
 #endif

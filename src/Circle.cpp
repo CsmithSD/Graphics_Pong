@@ -21,7 +21,7 @@ void Circle::draw()
 {
     // specify the draw color
     glColor3f( color.r, color.g, color.b );
-    int NumVert = 20;
+    int NumVert = 30;
     // draw an unfilled polygon
     float x = point.x;   // circle center
     float y = point.y;
