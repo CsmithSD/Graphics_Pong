@@ -16,8 +16,8 @@ using namespace std;
 const int EscapeKey = 27;
 
 //TEST PADDLE
-Point2D left_start(250,250,0);
-Paddle Left_paddle(left_start, 50, 50);
+Point2D left_start(250,250,-976);
+Paddle Left_paddle(left_start, 100, 50);
 
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 const float ViewplaneSize = 1000.0;

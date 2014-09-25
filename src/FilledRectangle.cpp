@@ -22,32 +22,32 @@ void FilledRectangle::draw()
         glBegin( GL_POLYGON );
 
         //Bottom Left Corner
-        x = point.x - w;
-        y = point.y - h;
+        x = - w;
+        y = - h;
         rotated_x = x*c - y*s;
         rotated_y = x*s + y*c;
-        glVertex2f( rotated_x, rotated_y );
+        glVertex2f( point.x + rotated_x, point.y + rotated_y );
 
         //Top Left Corner
-        //x = point.x-w; - don't need to recalculate
-        y = point.y + h;
+        //x = w; - don't need to recalculate
+        y = h;
         rotated_x = x*c - y*s;
         rotated_y = x*s + y*c;
-        glVertex2f( rotated_x, rotated_y );
+        glVertex2f( point.x + rotated_x, point.y + rotated_y );
 
         //Top Right Corner
-        x = point.x+w;
+        x = w;
         //y = point.y + h; - don't need to recalculate
         rotated_x = x*c - y*s;
         rotated_y = x*s + y*c;
-        glVertex2f( rotated_x, rotated_y );
+        glVertex2f( point.x + rotated_x, point.y +rotated_y );
 
         //Bottom Right Corner
         //x = point.x + w; - don't need to recalculate
-        y = point.y - h;
+        y = - h;
         rotated_x = x*c - y*s;
         rotated_y = x*s + y*c;
-        glVertex2f( rotated_x, rotated_y );
+        glVertex2f( point.x + rotated_x, point.y + rotated_y );
     glEnd();    
     Rectangle::draw();
 }
