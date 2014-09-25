@@ -25,7 +25,7 @@ Point2D Entity2D::get_point(){ return point;}
 Velocity2D Entity2D::get_velocity(){return vel;}
 void Entity2D::set_velocity(float x, float y, float yaw)
 {
-    vel.x = x;
-    vel.y = y;
-    vel.yaw = yaw;
+    vel.x_vel = x;
+    vel.y_vel = y;
+    vel.yaw_vel = yaw;
 }
