@@ -1,6 +1,6 @@
 //Class include files
 #include "../include/Paddle.h"
-#include "../include/Circle.h"
+#include "../include/Ball.h"
 //#include "../include/Point2D.h"
 //#include "../include/Velocity2D.h"
 // include files c/c++ libraries
@@ -18,6 +18,7 @@ const int EscapeKey = 27;
 //TEST PADDLE
 Point2D left_start(250,250,-976);
 Paddle Left_paddle(left_start, 100, 50);
+Ball ball(left_start, 40);
 
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 const float ViewplaneSize = 1000.0;
@@ -43,7 +44,7 @@ void initOpenGL( void );
 // main() function
 int main( int argc, char *argv[] )
 {
-
+    ball.move2D(300,300,0);
     // perform various OpenGL initializations
     glutInit( &argc, argv );
     initOpenGL();
@@ -86,6 +87,9 @@ void display( void )
 {
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
+    ball.set_fill_color(1,1,1);
+    ball.draw();
+    Left_paddle.set_color(1,0,1);
     Left_paddle.draw();
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].draw();
@@ -108,6 +112,7 @@ void idle()
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].animate();
     last_time = new_time;
+    glFlush();
     glutPostRedisplay();
 }
 

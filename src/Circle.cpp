@@ -19,10 +19,6 @@ Circle::~Circle(){}
 
 void Circle::draw()
 {
-    
-    // clear the display using the "clear" color (black)
-    glClear( GL_COLOR_BUFFER_BIT );
-
     // specify the draw color
     glColor3f( color.r, color.g, color.b );
     int NumVert = 20;
@@ -36,9 +32,6 @@ void Circle::draw()
         glVertex2f( x + r * cos( 2 * M_PI * i / NumVert ), y + r * sin( 2 * M_PI * i / NumVert ) );
     }
     glEnd();
-
-    // flush graphical output to the display
-    glFlush();
 }
 
 void Circle::translate2D(float x, float y)

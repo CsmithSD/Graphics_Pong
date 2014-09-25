@@ -23,17 +23,15 @@ class Circle : public Entity2D
     void draw();
     void translate2D(float x, float y);
     void rotate2D(float yaw);
-    void move2D( float x, float y, float yaw );
+    void move2D( float x, float y, float yaw = 0 );
 
     Color get_color();
-    void set_color(float r = 0, float g = 0, float b = 0);
+    void set_color(float r = 1, float g = 1, float b = 1);
     float get_radius();
     void set_radius(float radius);
 
     protected:
     float radius;
-
-    private:
     Color color;
 };
 
