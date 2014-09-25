@@ -16,7 +16,9 @@ Paddle::~Paddle()
 
 void Paddle::animate( float timestep )
 {
-
+    point.x += vel.x_vel * timestep;
+    point.y += vel.y_vel * timestep;
+    point.yaw += vel.yaw_vel * timestep;
 }
 
 void Paddle::set_limits(float left, float right, float bottom, float top)
