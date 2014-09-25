@@ -179,7 +179,7 @@ void special_keyboard( int key, int x, int y)
 void special_keyboardUp( int key, int x, int y)
 {
     y = ScreenHeight -y;
-    cerr << "Special Keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
+    cerr << "Special KeyRelease: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
 
     Velocity2D right = right_paddle.get_velocity();
     switch(key)
