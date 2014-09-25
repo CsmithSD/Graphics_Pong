@@ -6,7 +6,7 @@
 class FilledCircle : public Circle
 {
     public:
-    FilledCircle(Point2D point = Point2D(), float radius = 0, Color color = Color(1,1,1), Velocity2D velocity = Velocity2D() );
+    FilledCircle(Point2D point = Point2D(), float radius = 0, Color color = Color(1,1,1), Velocity2D vel = Velocity2D() );
     ~FilledCircle();
 
     void draw();
