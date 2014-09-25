@@ -15,8 +15,20 @@ Ball::~Ball()
 
 }
 
-void Ball::animate(float timestamp)
+void Ball::animate(float timestep)
 {
+    point.x += vel.x_vel * timestep;
+    point.y += vel.y_vel * timestep;
+    point.yaw += vel.yaw_vel * timestep;
+
+    if( point.x <= left_limit )
+        vel.x_vel *= -1;
+    else if( point.x >= right_limit )
+        vel.x_vel *= -1;
+    if( point.y <= bottom_limit )
+        vel.y_vel *= -1;
+    else if( point.y >= top_limit )
+        vel.y_vel *= -1;
 
 }
 
