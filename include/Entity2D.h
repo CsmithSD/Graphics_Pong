@@ -28,7 +28,7 @@ class Entity2D
     float get_yaw();
     Point2D get_point();
     Velocity2D get_velocity();
-
+    void set_velocity(float x, float y, float yaw = 0);
     //Movement
     virtual void translate2D(float x, float y) = 0;
     virtual void rotate2D(float yaw) = 0;
