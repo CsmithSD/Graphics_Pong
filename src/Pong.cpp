@@ -36,7 +36,9 @@ int ScreenHeight = 600;
 void display( void );
 void reshape( int w, int h );
 void keyboard( unsigned char key, int x, int y );
+void keyboardUp( unsigned char key, int x, int y);
 void special_keyboard( int key, int x, int y);
+void special_keyboardUp( int key, int x, int y);
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 void idle();
@@ -55,6 +57,7 @@ int main( int argc, char *argv[] )
     // perform various OpenGL initializations
     glutInit( &argc, argv );
     initOpenGL();
+    glutIgnoreKeyRepeat(1);//ignore auto repeats from held keys
 
     // go into OpenGL/GLUT main loop, never to return
     glutMainLoop();
@@ -80,7 +83,9 @@ void initOpenGL( void )
     glutDisplayFunc( display );             // how to redisplay window
     glutReshapeFunc( reshape );             // how to resize window
     glutKeyboardFunc( keyboard );           // how to handle key presses
+    glutKeyboardUpFunc( keyboardUp);
     glutSpecialFunc( special_keyboard);     // how to handle arrow keys
+    glutSpecialUpFunc( special_keyboardUp);
     glutMouseFunc( mouseclick );            // how to handle mouse events
     glutIdleFunc( idle );
 }
@@ -148,25 +153,53 @@ void special_keyboard( int key, int x, int y)
     y = ScreenHeight -y;
     cerr << "Special Keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
 
+    Velocity2D right = right_paddle.get_velocity();
     switch(key)
     {
         case GLUT_KEY_LEFT:
-            right_paddle.set_velocity(-PADDLE_SPEED,
+            right_paddle.set_velocity(right.x_vel-PADDLE_SPEED,right.y_vel,right.yaw_vel);
         break;
 
         case GLUT_KEY_RIGHT:
-
+            right_paddle.set_velocity(right.x_vel+PADDLE_SPEED,right.y_vel,right.yaw_vel);
         break;
 
         case GLUT_KEY_UP:
-
+            right_paddle.set_velocity(right.x_vel,right.y_vel+PADDLE_SPEED,right.yaw_vel);
         break;
 
         case GLUT_KEY_DOWN:
-
+            right_paddle.set_velocity(right.x_vel,right.y_vel-PADDLE_SPEED,right.yaw_vel);
         break;
 
     }
+}
+
+void special_keyboardUp( int key, int x, int y)
+{
+    y = ScreenHeight -y;
+    cerr << "Special Keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
+
+    Velocity2D right = right_paddle.get_velocity();
+    switch(key)
+    {
+        case GLUT_KEY_LEFT:
+            right_paddle.set_velocity(right.x_vel+PADDLE_SPEED,right.y_vel,right.yaw_vel);
+        break;
+
+        case GLUT_KEY_RIGHT:
+            right_paddle.set_velocity(right.x_vel-PADDLE_SPEED,right.y_vel,right.yaw_vel);
+        break;
+
+        case GLUT_KEY_UP:
+            right_paddle.set_velocity(right.x_vel,right.y_vel-PADDLE_SPEED,right.yaw_vel);
+        break;
+
+        case GLUT_KEY_DOWN:
+            right_paddle.set_velocity(right.x_vel,right.y_vel+PADDLE_SPEED, right.yaw_vel);
+        break;
+    }
+
 }
 
 void keyboardUp(unsigned char key, int x, int y)
@@ -189,12 +222,13 @@ void keyboardUp(unsigned char key, int x, int y)
 
         case 'd':
         case 'D':
+            left_paddle.set_velocity(left.x_vel - PADDLE_SPEED, left.y_vel, left.yaw_vel);
 
         break;
 
         case 'w':
         case 'W':
-
+            left_paddle.set_velocity(left.x_vel,left.y_vel-PADDLE_SPEED, left.yaw_vel);
         break;
     }
 }
@@ -206,6 +240,7 @@ void keyboard( unsigned char key, int x, int y )
     y = ScreenHeight - y;
     cerr << "keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
 
+    Velocity2D left = left_paddle.get_velocity();
     // process keypresses
     switch ( key )
     {
@@ -216,22 +251,22 @@ void keyboard( unsigned char key, int x, int y )
 
         case 'a':
         case 'A':
-
+            left_paddle.set_velocity(left.x_vel - PADDLE_SPEED,left.y_vel, left.yaw_vel);
         break;
 
         case 's':
         case 'S':
-
+            left_paddle.set_velocity(left.x_vel,left.y_vel-PADDLE_SPEED,left.yaw_vel);
         break;
 
         case 'd':
         case 'D':
-
+            left_paddle.set_velocity(left.x_vel+PADDLE_SPEED, left.y_vel, left.yaw_vel);
         break;
 
         case 'w':
         case 'W':
-
+            left_paddle.set_velocity(left.x_vel, left.y_vel+PADDLE_SPEED,left.yaw_vel);
         break;
 
         case ' ':
