@@ -22,7 +22,7 @@ using namespace std;
 const int EscapeKey = 27;
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 
-Ball ball(Point2D(GAME_WIDTH/2.0,GAME_HEIGHT/2.0),1,Color(1,0,0));
+Ball ball(Point2D(GAME_WIDTH/2.0,GAME_HEIGHT/2.0),1,Color(1,0,0),Velocity2D(50,50,5));
 Paddle left_paddle(Point2D(PADDLE_WIDTH,GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
 Paddle right_paddle(Point2D(GAME_WIDTH - PADDLE_WIDTH, GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
 //Game state variable
@@ -121,6 +121,7 @@ void idle()
     float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].animate();
+    ball.animate(scale_factor);
     last_time = new_time;
     glFlush();
     glutPostRedisplay();
