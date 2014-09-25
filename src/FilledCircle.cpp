@@ -13,13 +13,9 @@ FilledCircle::~FilledCircle()
 
 void FilledCircle::draw()
 {
-    
-    // clear the display using the "clear" color (black)
-    glClear( GL_COLOR_BUFFER_BIT );
-
     // specify the draw color
     glColor3f( color.r, color.g, color.b );
-    int NumVert = 20;
+    int NumVert = 30;
     // draw an unfilled polygon
     float x = point.x;   // circle center
     float y = point.y;
@@ -32,9 +28,6 @@ void FilledCircle::draw()
     glEnd();
 
     Circle::draw();
-
-    // flush graphical output to the display
-    glFlush();
 }
 
 void FilledCircle::set_color(float r, float g, float b)
