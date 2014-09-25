@@ -1,8 +1,8 @@
 //Class include files
-#include "../include/Rectangle.h"
+#include "../include/Paddle.h"
 #include "../include/Circle.h"
-#include "../include/Entity2D.h"
-
+//#include "../include/Point2D.h"
+//#include "../include/Velocity2D.h"
 // include files c/c++ libraries
 #include <ctime>
 #include <iostream>
@@ -15,6 +15,9 @@ using namespace std;
 // keypresses
 const int EscapeKey = 27;
 
+//TEST PADDLE
+Point2D left_start(250,250,0);
+Paddle Left_paddle(left_start, 50, 50);
 
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 const float ViewplaneSize = 1000.0;
@@ -83,7 +86,7 @@ void display( void )
 {
     // clear the display
     glClear( GL_COLOR_BUFFER_BIT );
-
+    Left_paddle.draw();
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].draw();
 
@@ -101,7 +104,7 @@ void idle()
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
     float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
-
+    Left_paddle.animate(scale_factor);
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].animate();
     last_time = new_time;
