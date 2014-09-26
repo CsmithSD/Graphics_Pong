@@ -182,6 +182,19 @@ void special_keyboard( int key, int x, int y)
         break;
 
     }
+    right = right_paddle.get_velocity();
+    if(right.x_vel > PADDLE_SPEED)
+        right.x_vel = PADDLE_SPEED;
+    if(right.x_vel < - PADDLE_SPEED)
+        right.x_vel = -PADDLE_SPEED)
+    if(right.y_vel > PADDLE_SPEED)
+        right.y_vel = PADDLE_SPEED;
+    if(right.y_vel < -PADDLE_SPEED)
+        right.y_vel = -PADDLE_SPEED;
+    if(right.yaw_vel > PADDLE_ROTATE_SPEED)
+        right.yaw_vel = PADDLE_ROTATE_SPEED;
+    if(right.yaw_vel < -PADDLE_ROTATE_SPEED)
+        right.yaw_vel = -PADDLE_ROTATE_SPEED;
 }
 
 void special_keyboardUp( int key, int x, int y)
@@ -214,7 +227,19 @@ void special_keyboardUp( int key, int x, int y)
             right_paddle.set_velocity(right.x_vel,right.y_vel+PADDLE_SPEED, right.yaw_vel);
         break;
     }
-
+    right = right_paddle.get_velocity();
+    if(right.x_vel > PADDLE_SPEED)
+        right.x_vel = PADDLE_SPEED;
+    if(right.x_vel < - PADDLE_SPEED)
+        right.x_vel = -PADDLE_SPEED)
+    if(right.y_vel > PADDLE_SPEED)
+        right.y_vel = PADDLE_SPEED;
+    if(right.y_vel < -PADDLE_SPEED)
+        right.y_vel = -PADDLE_SPEED;
+    if(right.yaw_vel > PADDLE_ROTATE_SPEED)
+        right.yaw_vel = PADDLE_ROTATE_SPEED;
+    if(right.yaw_vel < -PADDLE_ROTATE_SPEED)
+        right.yaw_vel = -PADDLE_ROTATE_SPEED;
 }
 
 void keyboardUp(unsigned char key, int x, int y)
@@ -256,6 +281,19 @@ void keyboardUp(unsigned char key, int x, int y)
             left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel+PADDLE_ROTATE_SPEED);
         break;
     }
+    right = right_paddle.get_velocity();
+    if(right.x_vel > PADDLE_SPEED)
+        right.x_vel = PADDLE_SPEED;
+    if(right.x_vel < - PADDLE_SPEED)
+        right.x_vel = -PADDLE_SPEED)
+    if(right.y_vel > PADDLE_SPEED)
+        right.y_vel = PADDLE_SPEED;
+    if(right.y_vel < -PADDLE_SPEED)
+        right.y_vel = -PADDLE_SPEED;
+    if(right.yaw_vel > PADDLE_ROTATE_SPEED)
+        right.yaw_vel = PADDLE_ROTATE_SPEED;
+    if(right.yaw_vel < -PADDLE_ROTATE_SPEED)
+        right.yaw_vel = -PADDLE_ROTATE_SPEED;
 }
 
 // callback function that tells OpenGL how to handle keystrokes
@@ -309,8 +347,6 @@ void keyboard( unsigned char key, int x, int y )
         case 'P':
 
         break;
-
-
         // anything else redraws window
         default:
             glutPostRedisplay();
