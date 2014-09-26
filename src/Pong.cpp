@@ -158,6 +158,12 @@ void special_keyboard( int key, int x, int y)
     Velocity2D right = right_paddle.get_velocity();
     switch(key)
     {
+        case GLUT_KEY_HOME:
+            right_paddle.set_velocity(right.x_vel,right.y_vel,right.yaw_vel+PADDLE_ROTATE_SPEED);
+        break;
+        case GLUT_KEY_PAGE_UP:
+            right_paddle.set_velocity(right.x_vel,right.y_vel,right.yaw_vel-PADDLE_ROTATE_SPEED);
+        break;
         case GLUT_KEY_LEFT:
             right_paddle.set_velocity(right.x_vel-PADDLE_SPEED,right.y_vel,right.yaw_vel);
         break;
@@ -185,6 +191,12 @@ void special_keyboardUp( int key, int x, int y)
     Velocity2D right = right_paddle.get_velocity();
     switch(key)
     {
+        case GLUT_KEY_HOME:
+            right_paddle.set_velocity(right.x_vel,right.y_vel,right.yaw_vel-PADDLE_ROTATE_SPEED);
+        break;
+        case GLUT_KEY_PAGE_UP:
+            right_paddle.set_velocity(right.x_vel,right.y_vel,right.yaw_vel+PADDLE_ROTATE_SPEED);
+        break;
         case GLUT_KEY_LEFT:
             right_paddle.set_velocity(right.x_vel+PADDLE_SPEED,right.y_vel,right.yaw_vel);
         break;
@@ -232,6 +244,16 @@ void keyboardUp(unsigned char key, int x, int y)
         case 'W':
             left_paddle.set_velocity(left.x_vel,left.y_vel-PADDLE_SPEED, left.yaw_vel);
         break;
+        
+        case 'q':
+        case 'Q':
+            left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel-PADDLE_ROTATE_SPEED);
+        break;
+
+        case 'e':
+        case 'E':
+            left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel+PADDLE_ROTATE_SPEED);
+        break;
     }
 }
 
@@ -269,6 +291,16 @@ void keyboard( unsigned char key, int x, int y )
         case 'w':
         case 'W':
             left_paddle.set_velocity(left.x_vel, left.y_vel+PADDLE_SPEED,left.yaw_vel);
+        break;
+
+        case 'q':
+        case 'Q':
+            left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel+PADDLE_ROTATE_SPEED);
+        break;
+
+        case 'e':
+        case 'E':
+            left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel-PADDLE_ROTATE_SPEED);
         break;
 
         case ' ':
