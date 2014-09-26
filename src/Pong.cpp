@@ -13,7 +13,7 @@ using namespace std;
 #define PADDLE_HEIGHT 15
 #define GAME_HEIGHT 100
 #define GAME_WIDTH 100
-#define PADDLE_SPEED 2
+#define PADDLE_SPEED 50
 #define BALL_START_SPEED 4
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
@@ -122,8 +122,9 @@ void idle()
     //for(int i = 0; i < num_entities; i++)
     //  entities[i].animate();
     ball.animate(scale_factor);
+    left_paddle.animate(scale_factor);
+    right_paddle.animate(scale_factor);
     last_time = new_time;
-    glFlush();
     glutPostRedisplay();
 }
 

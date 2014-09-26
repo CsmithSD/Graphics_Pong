@@ -1,4 +1,5 @@
 #include "../include/Paddle.h"
+#include <iostream>
 
 Paddle::Paddle(Point2D point, float width, float height, Color color, Velocity2D vel ):
                 FilledRectangle(point,width,height,color,vel)
@@ -32,53 +33,54 @@ void Paddle::animate( float timestep )
     y = - h;
     rotated_x = x*c - y*s;
     rotated_y = x*s + y*c;
-    if( x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x + x );
-    else if( x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x + x );
-    if( y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + y );
-    else if( y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y + y );
+    if(  point.x+rotated_x < left_limit )
+        point.x += left_limit - (rotated_x + point.x );
+    else if(  point.x+rotated_x >= right_limit )
+        point.x += right_limit - (rotated_x +  point.x );
+    if(  point.y+rotated_y >= top_limit )
+        point.y += top_limit - (rotated_y +  point.y );
+    else if(  point.y+rotated_y <= bottom_limit )
+        point.y += bottom_limit - (rotated_y +  point.y );
     //Top Left Corner
     //x = w; - don't need to recalculate
     y = h;
     rotated_x = x*c - y*s;
     rotated_y = x*s + y*c;
-    if( x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x + x );
-    else if( x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x + x );
-    if( y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + y );
-    else if( y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y + y );
+    if(  point.x+rotated_x <= left_limit )
+        point.x += left_limit - (rotated_x +  point.x );
+    else if(  point.x+rotated_x >= right_limit )
+        point.x += right_limit - (rotated_x +  point.x );
+    if(  point.y+rotated_y >= top_limit )
+        point.y += top_limit - (rotated_y + point.y );
+    else if(  point.y+rotated_y <= bottom_limit )
+        point.y += bottom_limit - (rotated_y +  point.y );
     //Top Right Corner
     x = w;
     //y = point.y + h; - don't need to recalculate
     rotated_x = x*c - y*s;
     rotated_y = x*s + y*c;
-    if( x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x + x );
+    if(  point.x+rotated_x <= left_limit )
+        point.x += left_limit - (rotated_x +  point.x );
     else if( x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x + x );
-    if( y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + y );
-    else if( y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y + y );
+        point.x += right_limit - (rotated_x +  point.x );
+    if(  point.y+rotated_y >= top_limit )
+        point.y += top_limit - (rotated_y +  point.y );
+    else if(  point.y+rotated_y <= bottom_limit )
+        point.y += bottom_limit - (rotated_y +  point.y );
     //Bottom Right Corner
     //x = point.x + w; - don't need to recalculate
     y = - h;
     rotated_x = x*c - y*s;
     rotated_y = x*s + y*c;
-    if( x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x + x );
-    else if( x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x + x );
-    if( y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + y );
-    else if( y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y + y );
+    if( point.x+rotated_x <= left_limit )
+        point.x += left_limit - (rotated_x +  point.x );
+    else if(  point.x+rotated_x >= right_limit )
+        point.x += right_limit - (rotated_x + point.x );
+    if(  point.y+rotated_y >= top_limit )
+        point.y += top_limit - (rotated_y + point.y );
+    else if(  point.y+rotated_y <= bottom_limit )
+        point.y += bottom_limit - (rotated_y +  point.y );
+        
 }
 
 void Paddle::set_limits(float left, float right, float bottom, float top)
