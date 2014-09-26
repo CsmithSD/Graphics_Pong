@@ -15,6 +15,7 @@ using namespace std;
 #define GAME_WIDTH 100
 #define PADDLE_SPEED 50
 #define BALL_START_SPEED 4
+#define PADDLE_ROTATE_SPEED 0.25
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
 
