@@ -18,7 +18,7 @@ using namespace std;
 #define PADDLE_SPEED 500
 #define BALL_START_SPEED 40
 #define PADDLE_ROTATE_SPEED 1.5
-#define BALL_SIZE 40
+#define BALL_SIZE 5
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
 
@@ -30,13 +30,18 @@ Ball ball(Point2D(TOTAL_WIDTH/2.0,TOTAL_HEIGHT/2.0),BALL_SIZE,Color(1,0,0),Veloc
 Paddle left_paddle(Point2D(PADDLE_WIDTH,TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
 Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
 //Game state variable
+//0 - Game Not Started
+//1 - Game In Progress
+//2 - Game Ended
 int GAMESTATE = 0;
-
+bool PAUSED = false;
 // global vars
-int ScreenWidth  = 800;
-int ScreenHeight = 450;
+int ScreenWidth  = 600;
+int ScreenHeight = 600;
 
 // OpenGL callback function prototypes
+void showStartScreen();
+void showPausedStr();
 void display( void );
 void reshape( int w, int h );
 void keyboard( unsigned char key, int x, int y );
@@ -103,6 +108,20 @@ void initOpenGL( void )
 void display( void )
 {
     // clear the display
+    switch(GAMESTATE)
+    {
+        //Game not yet started
+        case 0:       
+            showStartScreen();
+        //Display Name
+        //Display Controls
+        break;
+
+    }
+    if(PAUSED)
+    {
+        showPausedStr();
+    }
     glClear( GL_COLOR_BUFFER_BIT );
     ball.draw();
     left_paddle.draw();
@@ -139,16 +158,39 @@ void idle()
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
     float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
-    //for(int i = 0; i < num_entities; i++)
-    //  entities[i].animate();
-    ball.animate(scale_factor);
-    left_paddle.animate(scale_factor);
-    right_paddle.animate(scale_factor);
+    
+    if(GAMESTATE == 1 && !PAUSED)
+    {
+        ball.animate(scale_factor);
+        left_paddle.animate(scale_factor);
+        right_paddle.animate(scale_factor);
+    }
     last_time = new_time;
     glutPostRedisplay();
 }
 
-/******************************************************************************/
+void showPausedStr()
+{
+    glColor3f(1,1,1);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef( 100, 100, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"***PAUSED***" );
+    glPopMatrix();
+}
+
+void showStartScreen()
+{
+    glColor3f(1,1,1 );
+    glRasterPos2f( 100, 100 );
+
+    // glutBitmapString is available in freeglut
+    glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char *)"test2asdfasdfasdt");
+
+    // GLUT only supports glutBitmapCharacter
+    // while ( *string ) glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_24, *string++ );
+}
 
 // callback function that tells OpenGL how to resize window
 // note that this is called when the window is first created
@@ -413,10 +455,14 @@ void keyboard( unsigned char key, int x, int y )
             left.yaw_vel -= PADDLE_ROTATE_SPEED;
         break;
 
+        //Start or pause/resume the game on spacebar
         case ' ':
         case 'p':
         case 'P':
-
+            if(GAMESTATE != 0)
+                PAUSED = !PAUSED;
+            else
+                GAMESTATE = 1;
         break;
 
         //Right Paddle Keys
