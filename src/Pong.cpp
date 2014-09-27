@@ -9,13 +9,16 @@
 #include <vector>
 using namespace std;
 
-#define PADDLE_WIDTH 2
-#define PADDLE_HEIGHT 15
-#define GAME_HEIGHT 100
-#define GAME_WIDTH 100
-#define PADDLE_SPEED 50
-#define BALL_START_SPEED 4
-#define PADDLE_ROTATE_SPEED 0.75
+#define PADDLE_WIDTH 20
+#define PADDLE_HEIGHT 150
+#define TOTAL_WIDTH 1600
+#define TOTAL_HEIGHT 1600
+#define BOTTOM_COURT_EDGE 300
+#define TOP_COURT_EDGE 1200
+#define PADDLE_SPEED 500
+#define BALL_START_SPEED 40
+#define PADDLE_ROTATE_SPEED 1.5
+#define BALL_SIZE 40
 // the GLUT header automatically includes gl.h and glu.h
 #include <GL/freeglut.h>
 
@@ -23,15 +26,15 @@ using namespace std;
 const int EscapeKey = 27;
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 
-Ball ball(Point2D(GAME_WIDTH/2.0,GAME_HEIGHT/2.0),1,Color(1,0,0),Velocity2D(50,50,5));
-Paddle left_paddle(Point2D(PADDLE_WIDTH,GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
-Paddle right_paddle(Point2D(GAME_WIDTH - PADDLE_WIDTH, GAME_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
+Ball ball(Point2D(TOTAL_WIDTH/2.0,TOTAL_HEIGHT/2.0),BALL_SIZE,Color(1,0,0),Velocity2D(500,500,0));
+Paddle left_paddle(Point2D(PADDLE_WIDTH,TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
+Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
 //Game state variable
 int GAMESTATE = 0;
 
 // global vars
-int ScreenWidth  = 600;
-int ScreenHeight = 600;
+int ScreenWidth  = 800;
+int ScreenHeight = 450;
 
 // OpenGL callback function prototypes
 void display( void );
@@ -43,6 +46,7 @@ void special_keyboardUp( int key, int x, int y);
 void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 void idle();
+void draw_outline();
 
 // useful graphics function prototypes
 void initOpenGL( void );
@@ -52,9 +56,9 @@ void initOpenGL( void );
 // main() function
 int main( int argc, char *argv[] )
 {
-    left_paddle.set_limits(0,GAME_WIDTH/2.0,0,GAME_HEIGHT);
-    right_paddle.set_limits(GAME_WIDTH/2.0,GAME_WIDTH,0,GAME_HEIGHT);
-    ball.set_limits(-ball.get_radius(),GAME_WIDTH+ball.get_radius(),0,GAME_HEIGHT);
+    left_paddle.set_limits(0,TOTAL_WIDTH/2.0,BOTTOM_COURT_EDGE, TOP_COURT_EDGE);
+    right_paddle.set_limits(TOTAL_WIDTH/2.0,TOTAL_WIDTH,BOTTOM_COURT_EDGE, TOP_COURT_EDGE);
+    ball.set_limits(-ball.get_radius(),TOTAL_WIDTH+ball.get_radius(),BOTTOM_COURT_EDGE,TOP_COURT_EDGE);
     // perform various OpenGL initializations
     glutInit( &argc, argv );
     initOpenGL();
@@ -103,9 +107,27 @@ void display( void )
     ball.draw();
     left_paddle.draw();
     right_paddle.draw();
-    //court_outline.draw();
+    draw_outline();
     glutSwapBuffers();
     glFlush();
+}
+
+void draw_outline()
+{
+    glColor3f(1,1,1);
+        glBegin(GL_LINES);
+        //bottom left
+        glVertex2f(0,BOTTOM_COURT_EDGE);
+
+        //bottom right
+        glVertex2f(TOTAL_WIDTH,BOTTOM_COURT_EDGE);
+
+        //Top right
+        glVertex2f(0,TOP_COURT_EDGE);
+
+        //top left 
+        glVertex2f(TOTAL_WIDTH,TOP_COURT_EDGE);
+        glEnd();
 }
 
 void idle()
@@ -139,11 +161,21 @@ void reshape( int w, int h )
     // how to project 3-D scene onto 2-D
     glMatrixMode( GL_PROJECTION );      // use an orthographic projection
     glLoadIdentity();                   // initialize transformation matrix
+    float extra_x;
+    float extra_y;
     if ( w > h )                        // use width:height aspect ratio to specify view extents
-        gluOrtho2D( 0, GAME_WIDTH * w / h, 0, GAME_HEIGHT );
+    {
+        extra_x = w-h;
+        extra_y = 0;
+        gluOrtho2D( 0, TOTAL_WIDTH*w/h, 0, TOTAL_HEIGHT );
+    }
     else
-        gluOrtho2D( 0, GAME_WIDTH, 0, GAME_HEIGHT * h / w );
-    glViewport( 0, 0, w, h );           // adjust viewport to new window
+    {
+        extra_x = 0;
+        extra_y = h-w;
+        gluOrtho2D( 0, TOTAL_WIDTH, 0, TOTAL_HEIGHT * h / w );
+    }
+    glViewport( extra_x/2, extra_y-2, w, h );           // adjust viewport to new window
 }
 
 /******************************************************************************/
