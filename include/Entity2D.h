@@ -12,6 +12,7 @@
 #define _ENTITY_2D_
 #include "Point2D.h"
 #include "Velocity2D.h"
+#include <math.h>
 class Entity2D
 {
     public:
@@ -23,11 +24,11 @@ class Entity2D
     ~Entity2D();
 
     //Getters
-    float get_x();
-    float get_y();
-    float get_yaw();
-    Point2D get_point();
-    Velocity2D get_velocity();
+    float get_x() const ;
+    float get_y() const ;
+    float get_yaw() const ;
+    Point2D get_point() const ;
+    Velocity2D get_velocity() const ;
     void set_velocity(float x, float y, float yaw = 0);
     //Movement
     virtual void translate2D(float x, float y) = 0;

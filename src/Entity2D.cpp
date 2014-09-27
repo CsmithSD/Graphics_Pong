@@ -18,11 +18,11 @@ Entity2D::~Entity2D()
 {
 }
 
-float Entity2D::get_x(){ return point.x; }
-float Entity2D::get_y(){ return point.y; }
-float Entity2D::get_yaw(){ return point.yaw; }
-Point2D Entity2D::get_point(){ return point;}
-Velocity2D Entity2D::get_velocity(){return vel;}
+const float Entity2D::get_x(){ return point.x; }
+const float Entity2D::get_y(){ return point.y; }
+const float Entity2D::get_yaw(){ return point.yaw; }
+const Point2D Entity2D::get_point(){ return point;}
+const Velocity2D Entity2D::get_velocity(){return vel;}
 void Entity2D::set_velocity(float x, float y, float yaw)
 {
     vel.x_vel = x;
