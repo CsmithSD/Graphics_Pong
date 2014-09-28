@@ -51,14 +51,14 @@ void Ball::set_limits(float left, float right, float bottom, float top)
     bottom_limit = bottom;
 }
 
-void Ball::check_paddle_collision( const Paddle* paddle )
+void Ball::check_paddle_collision( Paddle& paddle )
 {
-    float paddle_x = (Entity2D*) (paddle)->get_x();
-    float paddle_y = paddle->get_y();
-    float paddle_yaw = paddle->get_yaw();
-    Velocity2D paddle_vel = paddle -> get_velocity();
-    float width = paddle->get_width();
-    float height = paddle->get_height();
+    float paddle_x =  paddle.get_x();
+    float paddle_y = paddle.get_y();
+    float paddle_yaw = paddle.get_yaw();
+    Velocity2D paddle_vel = paddle . get_velocity();
+    float width = paddle.get_width();
+    float height = paddle.get_height();
 
     float x,y,rotated_x,rotated_y;
     //Precalculate sin and cos, 1/2 w and h
@@ -128,7 +128,7 @@ void Ball::check_paddle_collision( const Paddle* paddle )
             vel.y_vel*=-1;
         }
    }
-    if( distance[0] < ( w << 1 ) && distance[2] < ( w << 1 ) )
+    if( distance[0] < ( w * 2 ) && distance[2] < ( w * 2 ) )
     {
         if( distance[1] < radius )
         {
@@ -148,6 +148,6 @@ float Ball::calc_distance(Point2D p1, Point2D p2)
     if( distance < 0 )
         distance *=-1;
 
-    distance /= sqrt( ( p2.x - p1.x ) * ( p2.x -p1.x ) + ( p2.y - p1.y ) * ( p2.y -p1.y ) )
+    distance /= sqrt( ( p2.x - p1.x ) * ( p2.x -p1.x ) + ( p2.y - p1.y ) * ( p2.y -p1.y ) );
     return distance;
 }

@@ -92,6 +92,9 @@ void Rectangle::set_color(float r, float g, float b)
     color.b = b;
 }
 
+float Rectangle::get_width(){ return width; }
+float Rectangle::get_height(){ return height; }
+
 void Rectangle::set_width(float width){ this->width = width;}
 void Rectangle::set_height(float height){ this->height = height;}
 
