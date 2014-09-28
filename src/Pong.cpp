@@ -164,6 +164,8 @@ void idle()
         ball.animate(scale_factor);
         left_paddle.animate(scale_factor);
         right_paddle.animate(scale_factor);
+	ball.check_paddle_collision( left_paddle );
+	ball.check_paddle_collision( right_paddle );
     }
     last_time = new_time;
     glutPostRedisplay();
