@@ -64,8 +64,8 @@ void Ball::check_paddle_collision( Paddle& paddle )
     //Precalculate sin and cos, 1/2 w and h
     float c = cos(paddle_yaw);
     float s = sin(paddle_yaw);
-    float w = 0.5 * width  + radius ;
-    float h = 0.5 * height + radius ;
+    float w = 0.5 * width;
+    float h = 0.5 * height;
 
     float distance[4];
     float shortest_distance = -1;
@@ -115,39 +115,36 @@ void Ball::check_paddle_collision( Paddle& paddle )
     distance[2] = calc_distance( tr_corner, br_corner );
     distance[3] = calc_distance( br_corner, bl_corner );
     
-    if( distance[1] < ( h * 2 ) && distance[3] < ( h * 2 ) )
+    if( distance[1] + distance[3] <= ( h * 2 ) )
     {
-        if( distance[0] < radius )
+        if( distance[0] <= radius )
         {
             vel.x_vel*=-1;
-            vel.y_vel*=-1;
+	    
         }
-        else if( distance[2] < radius )
+        if( distance[2] <= radius )
         {
             vel.x_vel*=-1;
-            vel.y_vel*=-1;
         }
    }
-    if( distance[0] < ( w * 2 ) && distance[2] < ( w * 2 ) )
+    if( distance[0] + distance[2] <= ( w * 2 ))
     {
-        if( distance[1] < radius )
+        if( distance[1] <= radius )
         {
-            vel.x_vel*=-1;
             vel.y_vel*=-1;
         }
-        else if( distance[3] < radius )
+        if( distance[3]  <= radius )
         {
-            vel.x_vel*=-1;
             vel.y_vel*=-1;
         }
    }
 }
 float Ball::calc_distance(Point2D p1, Point2D p2)
 {
-    float distance = ( (p2.y - p1.y)*point.x - ( p2.x - p1.x )*point.y - p1.x*p2.y + p2.x*p1.y);
+    float distance = ( (p2.y - p1.y)*point.x - ( p2.x - p1.x )*point.y - (p1.x*p2.y) + ( p2.x*p1.y ) );
     if( distance < 0 )
         distance *=-1;
 
-    distance /= sqrt( ( p2.x - p1.x ) * ( p2.x -p1.x ) + ( p2.y - p1.y ) * ( p2.y -p1.y ) );
+    distance /= sqrt( ( p2.x - p1.x ) * ( p2.x - p1.x ) + ( p2.y - p1.y ) * ( p2.y - p1.y ) );
     return distance;
 }
