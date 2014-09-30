@@ -45,7 +45,7 @@ float Entity2D::get_x() {
 * Description: Returns the y coordinate of the midpoint
 * ****************************************************************************/
 float Entity2D::get_y() {
-        return point.y;
+    return point.y;
 }
 /******************************************************************************
 * Function: get_yaw()

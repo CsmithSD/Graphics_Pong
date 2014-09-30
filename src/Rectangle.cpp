@@ -75,7 +75,7 @@ void Rectangle::update_corners()
     //distance of the corners from the center assuming no rotation
     float w = 0.5*width;
     float h = 0.5*height;
- 
+
     //bottom left corner
     x = - w; //offset from rectangle center
     y = - h;
@@ -83,7 +83,7 @@ void Rectangle::update_corners()
     rotated_y = x*s + y*c;
     bl_corner.x = rotated_x + point.x; //add the rotated offset
     bl_corner.y = rotated_y + point.y; //to the center point
- 
+
     //Top Left Corner
     //x = point.x-w; - don't need to recalculate
     y = h;
@@ -91,7 +91,7 @@ void Rectangle::update_corners()
     rotated_y = x*s + y*c;
     tl_corner.x = rotated_x + point.x;
     tl_corner.y = rotated_y + point.y;
- 
+
     //Top Right Corner
     x = w;
     //y = point.y + h; - don't need to recalculate
@@ -99,7 +99,7 @@ void Rectangle::update_corners()
     rotated_y = x*s + y*c;
     tr_corner.x = rotated_x + point.x;
     tr_corner.y = rotated_y + point.y;
- 
+
     //Bottom Right Corner
     //x = point.x + w; - don't need to recalculate
     y = - h;
@@ -130,7 +130,7 @@ void Rectangle::draw()
 /******************************************************************************
 * Function: translate2D(float x, float y)
 * Authors: Ian Carlson, Christopher Smith
-* Description: translates the rectangle 
+* Description: translates the rectangle
 * Arguments:
 *   x: translation left or right
 *   y: translation up or down
@@ -210,7 +210,7 @@ void Rectangle::set_color(float r, float g, float b)
 * Authors: Ian Carlson, Christopher Smith
 * Description: return the width of the rectangle
 * ****************************************************************************/
-float Rectangle::get_width() 
+float Rectangle::get_width()
 {
     return width;
 }
@@ -220,7 +220,7 @@ float Rectangle::get_width()
 * Authors: Ian Carlson, Christopher Smith
 * Description: return the height of the rectangle
 * ****************************************************************************/
-float Rectangle::get_height() 
+float Rectangle::get_height()
 {
     return height;
 }

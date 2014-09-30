@@ -1,16 +1,21 @@
 /******************************************************************************
-* Function: Entity2D( Point2D point, Velocity2D vel )
+* File: Paddle.h
 * Authors: Ian Carlson, Christopher Smith
-* Description: Constructor for the Entity2D object
-* Arguments:
-    point: Midpoint of the object
-    vel: velocity of the object
+* Description: Source file for the Paddle class
 * ****************************************************************************/
-
-
 #include "../include/Paddle.h"
-#include <iostream>
 
+/******************************************************************************
+* Function: Paddle( Point2D point, float width, float height, Color color, Velocity2D vel )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Constructor for the Paddle Class
+* Arguments:
+*   point: Midpoint of the object
+*   width: Width of the object
+*   height: Height of the object
+*   color: Color of the object
+*   vel: velocity of the object
+* ****************************************************************************/
 Paddle::Paddle(Point2D point, float width, float height, Color color, Velocity2D vel ):
     FilledRectangle(point,width,height,color,vel)
 {
@@ -20,17 +25,35 @@ Paddle::Paddle(Point2D point, float width, float height, Color color, Velocity2D
     top_limit = 0;
 }
 
+/******************************************************************************
+* Function: ~Paddle()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Deconstructor for the Paddle Class
+* ****************************************************************************/
 Paddle::~Paddle()
 {
 
 }
 
+/******************************************************************************
+* Function: shrink()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Shrinks the paddle by 10% every time it is hit by the ball
+* ****************************************************************************/
 void Paddle::shrink( )
 {
     set_height( height *.9 );
     set_width(  width *  .9 );
 }
 
+/******************************************************************************
+* Function: animate( float timestep )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Moves the Paddle around the screen based on how long ago it
+* was animated last and velocity
+* Arguments:
+*   timestep: time since the animate function was called last
+* ****************************************************************************/
 void Paddle::animate( float timestep )
 {
     Point2D bl,br,tl,tr;
@@ -95,6 +118,16 @@ void Paddle::animate( float timestep )
     get_corners(bl,br,tl,tr);
 }
 
+/******************************************************************************
+* Function: set_limits(float left, float right, float bottom, float top)
+* Authors: Ian Carlson, Christopher Smith
+* Description: Sets the bounds of the movable space for the paddle
+* Arguments:
+*   left: Left limit of the paddle
+*   right: Right limit of the paddle
+*   bottom: Bottom limit of the paddle
+*   top:    Top limit of the paddle
+* ****************************************************************************/
 void Paddle::set_limits(float left, float right, float bottom, float top)
 {
     left_limit = left;

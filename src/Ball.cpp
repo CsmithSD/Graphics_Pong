@@ -39,7 +39,7 @@ Ball::~Ball()
 }
 
 /******************************************************************************
-* File: Entity.cpp
+* function: animate( float timestep )
 * Authors: Ian Carlson, Christopher Smith
 * Description: This function moves the ball in its x and y velocity values,
 * while keeping it within its limits
@@ -77,12 +77,12 @@ void Ball::animate(float timestep)
 }
 
 /******************************************************************************
-* File: Entity.cpp
+* File: goal_made()
 * Authors: Ian Carlson, Christopher Smith
 * Description: Returns what is stored so that goal is detected or not
 * ****************************************************************************/
 
-int Ball::goal_made() 
+int Ball::goal_made()
 {
     return goal;
 }

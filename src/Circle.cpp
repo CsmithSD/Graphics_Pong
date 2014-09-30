@@ -77,7 +77,7 @@ void Circle::translate2D(float x, float y)
 * Authors: Ian Carlson, Christopher Smith
 * Date: 09/16/14
 * Last Modified 09/16/14
-* Description: Sets the rotation of hte circle between 0 and 2*PI 
+* Description: Sets the rotation of hte circle between 0 and 2*PI
 * Arguments:
 *   yaw: Rotation in radians to increase yaw by
 * ****************************************************************************/
@@ -93,7 +93,7 @@ void Circle::rotate2D( float yaw )
 /******************************************************************************
 * Function: move2D( float x, float y, float yaw)
 * Authors: Ian Carlson, Christopher Smith
-* Description: Moves the circle in absolute position without adding onto the 
+* Description: Moves the circle in absolute position without adding onto the
 * coordinates
 * Arguments:
 *   x: New x position

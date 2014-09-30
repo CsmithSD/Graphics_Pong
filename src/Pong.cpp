@@ -1,12 +1,19 @@
-
-
-
-
+/******************************************************************************
+* File: Pong.cpp
+* Authors: Ian Carlson, Christopher Smith
+* Description: Pong game implementation
+* ****************************************************************************/
 #include "../include/Pong.h"
 
-// main() function
+/******************************************************************************
+* Function: main( int argc, char *argv[] )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Start of the Pong game that creates the limits for all objects
+* ****************************************************************************/
+
 int main( int argc, char *argv[] )
 {
+    //limits for all game objects so they stay on screen
     left_paddle.set_limits(0,TOTAL_WIDTH/2.0,BOTTOM_COURT_EDGE, TOP_COURT_EDGE);
     right_paddle.set_limits(TOTAL_WIDTH/2.0,TOTAL_WIDTH,BOTTOM_COURT_EDGE, TOP_COURT_EDGE);
     ball.set_limits(-ball.get_radius(),TOTAL_WIDTH+ball.get_radius(),BOTTOM_COURT_EDGE,TOP_COURT_EDGE);
@@ -24,6 +31,12 @@ int main( int argc, char *argv[] )
 
 /******************************************************************************/
 
+/******************************************************************************
+* Function: Entity2D( Point2D point, Velocity2D vel )
+* Authors: Ian Carlson, Christopher Smith
+* Note: Function based off of a template from Dr. Weiss
+* Description: initializes glut handles for keyboard and window size
+* ****************************************************************************/
 // various commands to initialize OpenGL and GLUT
 void initOpenGL( void )
 {
@@ -42,7 +55,6 @@ void initOpenGL( void )
     glutKeyboardUpFunc( keyboardUp);
     glutSpecialFunc( special_keyboard);     // how to handle arrow keys
     glutSpecialUpFunc( special_keyboardUp);
-    glutMouseFunc( mouseclick );            // how to handle mouse events
     glutIdleFunc( idle );
 }
 
