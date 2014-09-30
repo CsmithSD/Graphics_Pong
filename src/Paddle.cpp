@@ -15,6 +15,12 @@ Paddle::~Paddle()
 
 }
 
+void Paddle::shrink( )
+{
+    set_height( height *.9 );
+    set_width(  width *  .9 );
+}
+
 void Paddle::animate( float timestep )
 {
     Point2D bl,br,tl,tr;

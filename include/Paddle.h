@@ -9,6 +9,7 @@ class Paddle:public FilledRectangle
         Paddle( Point2D point = Point2D(), float width = 0, float height = 0, Color color = Color(1,1,1),Velocity2D vel = Velocity2D() );
     ~Paddle();
 
+    void shrink();
     void animate(float timestep);
     void set_limits(float left, float right, float bottom, float top);
     private:

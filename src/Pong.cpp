@@ -33,7 +33,8 @@ Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE
 //0 - Game Not Started
 //1 - Game In Progress
 //2 - Game Ended
-float TIME_WARP = 1;
+float BALL_WARP = 1;
+float PADDLE_WARP = 1;
 int GAMESTATE = 0;
 bool PAUSED = false;
 // global vars
@@ -114,9 +115,9 @@ void display( void )
         //Game not yet started
         case 0:       
             showStartScreen();
-        //Display Name
-        //Display Controls
-        break;
+            //Display Name
+            //Display Controls
+            break;
 
     }
     if(PAUSED)
@@ -135,19 +136,19 @@ void display( void )
 void draw_outline()
 {
     glColor3f(1,1,1);
-        glBegin(GL_LINES);
-        //bottom left
-        glVertex2f(0,BOTTOM_COURT_EDGE);
+    glBegin(GL_LINES);
+    //bottom left
+    glVertex2f(0,BOTTOM_COURT_EDGE);
 
-        //bottom right
-        glVertex2f(TOTAL_WIDTH,BOTTOM_COURT_EDGE);
+    //bottom right
+    glVertex2f(TOTAL_WIDTH,BOTTOM_COURT_EDGE);
 
-        //Top right
-        glVertex2f(0,TOP_COURT_EDGE);
+    //Top right
+    glVertex2f(0,TOP_COURT_EDGE);
 
-        //top left 
-        glVertex2f(TOTAL_WIDTH,TOP_COURT_EDGE);
-        glEnd();
+    //top left 
+    glVertex2f(TOTAL_WIDTH,TOP_COURT_EDGE);
+    glEnd();
 }
 
 void idle()
@@ -158,15 +159,17 @@ void idle()
     static clock_t last_time = clock();
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
-    float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04)*TIME_WARP;
-    
+    float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
+
     if(GAMESTATE == 1 && !PAUSED)
     {
-        ball.animate(scale_factor);
-        left_paddle.animate(scale_factor);
-	    ball.check_paddle_collision( left_paddle , scale_factor);
-        right_paddle.animate(scale_factor);
-	    ball.check_paddle_collision( right_paddle , scale_factor);
+        ball.animate(scale_factor*BALL_WARP);
+        left_paddle.animate(scale_factor*PADDLE_WARP);
+        if(ball.check_paddle_collision( left_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
+            left_paddle.shrink();
+        right_paddle.animate(scale_factor*PADDLE_WARP);
+        if(ball.check_paddle_collision( right_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
+            right_paddle.shrink();
     }
     last_time = new_time;
     glutPostRedisplay();
@@ -235,23 +238,23 @@ void special_keyboard( int key, int x, int y)
     {
         case GLUT_KEY_HOME:
             right.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case GLUT_KEY_PAGE_UP:
             right.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case GLUT_KEY_LEFT:
             right.x_vel -= PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_RIGHT:
             right.x_vel += PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_UP:
             right.y_vel += PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_DOWN:
         case GLUT_KEY_BEGIN:
             right.y_vel -= PADDLE_SPEED;
-        break;
+            break;
     }
 
     //Make sure we didn't allow a double press
@@ -260,12 +263,12 @@ void special_keyboard( int key, int x, int y)
         right.x_vel = PADDLE_SPEED;
     if(right.x_vel < -PADDLE_SPEED)
         right.x_vel = -PADDLE_SPEED;
-    
+
     if(right.y_vel > PADDLE_SPEED)
         right.y_vel = PADDLE_SPEED;
     if(right.y_vel < -PADDLE_SPEED)
         right.y_vel = -PADDLE_SPEED;
-    
+
     if(right.yaw_vel > PADDLE_ROTATE_SPEED)
         right.yaw_vel = PADDLE_ROTATE_SPEED;
     if(right.yaw_vel < -PADDLE_ROTATE_SPEED)
@@ -285,23 +288,23 @@ void special_keyboardUp( int key, int x, int y)
     {
         case GLUT_KEY_HOME:
             right.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case GLUT_KEY_PAGE_UP:
             right.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case GLUT_KEY_LEFT:
             right.x_vel += PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_RIGHT:
             right.x_vel -= PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_UP:
             right.y_vel -= PADDLE_SPEED;
-        break;
+            break;
         case GLUT_KEY_DOWN:
         case GLUT_KEY_BEGIN:
             right.y_vel += PADDLE_SPEED;
-        break;
+            break;
     }
 
     //Make sure we didn't allow a double press
@@ -310,12 +313,12 @@ void special_keyboardUp( int key, int x, int y)
         right.x_vel = PADDLE_SPEED;
     if(right.x_vel < -PADDLE_SPEED)
         right.x_vel = -PADDLE_SPEED;
-    
+
     if(right.y_vel > PADDLE_SPEED)
         right.y_vel = PADDLE_SPEED;
     if(right.y_vel < -PADDLE_SPEED)
         right.y_vel = -PADDLE_SPEED;
-    
+
     if(right.yaw_vel > PADDLE_ROTATE_SPEED)
         right.yaw_vel = PADDLE_ROTATE_SPEED;
     if(right.yaw_vel < -PADDLE_ROTATE_SPEED)
@@ -339,47 +342,47 @@ void keyboardUp(unsigned char key, int x, int y)
         case 'a':
         case 'A':
             left.x_vel += PADDLE_SPEED;
-        break;
+            break;
         case 'd':
         case 'D':
             left.x_vel -= PADDLE_SPEED;
-        break;
+            break;
         case 's':
         case 'S':
             left.y_vel += PADDLE_SPEED;
-        break;
+            break;
         case 'w':
         case 'W':
             left.y_vel -= PADDLE_SPEED;
-        break;
+            break;
         case 'q':
         case 'Q':
             left.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case 'e':
         case 'E':
             left.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
 
-        //Right Paddle Keys
+            //Right Paddle Keys
         case '7':
             right.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case '9':
             right.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case '4':
             right.x_vel += PADDLE_SPEED;
-        break;
+            break;
         case '6':
             right.x_vel -= PADDLE_SPEED;
-        break;
+            break;
         case '5':
             right.y_vel += PADDLE_SPEED;
-        break;
+            break;
         case '8':
             right.y_vel -= PADDLE_SPEED;
-        break;
+            break;
     }
     if(left.x_vel > PADDLE_SPEED)
         left.x_vel = PADDLE_SPEED;
@@ -393,7 +396,7 @@ void keyboardUp(unsigned char key, int x, int y)
         left.yaw_vel = PADDLE_ROTATE_SPEED;
     if(left.yaw_vel < -PADDLE_ROTATE_SPEED)
         left.yaw_vel = -PADDLE_ROTATE_SPEED;
-    
+
     if(right.x_vel > PADDLE_SPEED)
         right.x_vel = PADDLE_SPEED;
     if(right.x_vel < - PADDLE_SPEED)
@@ -425,40 +428,40 @@ void keyboard( unsigned char key, int x, int y )
         // Escape quits program
         case EscapeKey:
             exit( 0 );
-        break;
+            break;
 
         case 'a':
         case 'A':
             left.x_vel -= PADDLE_SPEED;
-        break;
-        
+            break;
+
         case 'd':
         case 'D':
             left.x_vel += PADDLE_SPEED;
-        break;
+            break;
 
         case 's':
         case 'S':
             left.y_vel -= PADDLE_SPEED;
-        break;
+            break;
 
 
         case 'w':
         case 'W':
             left.y_vel += PADDLE_SPEED;
-        break;
+            break;
 
         case 'q':
         case 'Q':
             left.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
 
         case 'e':
         case 'E':
             left.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
 
-        //Start or pause/resume the game on spacebar
+            //Start or pause/resume the game on spacebar
         case ' ':
         case 'p':
         case 'P':
@@ -466,33 +469,39 @@ void keyboard( unsigned char key, int x, int y )
                 PAUSED = !PAUSED;
             else
                 GAMESTATE = 1;
-        break;
+            break;
 
         case '+':
-            TIME_WARP *=1.5;
-        break;
+            BALL_WARP *=1.5;
+            break;
         case '-':
-            TIME_WARP /=1.5;
-        break;
-        //Right Paddle Keys
+            BALL_WARP /=1.5;
+            break;
+        case '*':
+            PADDLE_WARP *= 1.5;
+            break;
+        case '/':
+            PADDLE_WARP /=1.5;
+            break;
+            //Right Paddle Keys
         case '7':
             right.yaw_vel += PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case '9':
             right.yaw_vel -= PADDLE_ROTATE_SPEED;
-        break;
+            break;
         case '4':
             right.x_vel -= PADDLE_SPEED;
-        break;
+            break;
         case '6':
             right.x_vel += PADDLE_SPEED;
-        break;
+            break;
         case '5':
             right.y_vel -= PADDLE_SPEED;
-        break;
+            break;
         case '8':
             right.y_vel += PADDLE_SPEED;
-        break;
+            break;
     }
     if(left.x_vel > PADDLE_SPEED)
         left.x_vel = PADDLE_SPEED;
@@ -506,7 +515,7 @@ void keyboard( unsigned char key, int x, int y )
         left.yaw_vel = PADDLE_ROTATE_SPEED;
     if(left.yaw_vel < -PADDLE_ROTATE_SPEED)
         left.yaw_vel = -PADDLE_ROTATE_SPEED;
-    
+
     if(right.x_vel > PADDLE_SPEED)
         right.x_vel = PADDLE_SPEED;
     if(right.x_vel < - PADDLE_SPEED)

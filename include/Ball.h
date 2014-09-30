@@ -11,7 +11,7 @@ class Ball:public FilledCircle
 
     void animate(float timestep);
     void set_limits(float left, float right, float bottom, float top);
-    void check_paddle_collision( Paddle& paddle, float scale_factor );
+    bool check_paddle_collision( Paddle& paddle, float ball_scale_factor, float paddle_scale_factor );
     private:
     float left_limit;
     float right_limit;

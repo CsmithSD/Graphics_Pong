@@ -51,7 +51,7 @@ void Ball::set_limits(float left, float right, float bottom, float top)
     bottom_limit = bottom;
 }
 
-void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
+bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, float paddle_scale_factor)
 {
     float distance[4];
     Point2D bl,br,tl,tr;
@@ -66,19 +66,19 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
     if(distance[1] > paddle.get_height() + 2*radius || distance[3] > paddle.get_height() + 2*radius)
     {
         //no collision, return
-        return;
+        return false;
     }
 
     //check up/down envelope
     if(distance[0] > paddle.get_width() + 2*radius || distance[2] > paddle.get_width() + 2*radius)
     {
         //no collision, return
-        return;
+        return false;
     }
 
     //first, step the ball back to where it was on the previous time step
     //to try to avoid getting inside the paddle
-    translate2D(-vel.x_vel*scale_factor,-vel.y_vel*scale_factor);
+    translate2D(-vel.x_vel*ball_scale_factor,-vel.y_vel*ball_scale_factor);
     
     //If we reach here, the ball has collided with the paddle and needs to reflect
     //assume we hit the edge with the smallest distance
@@ -122,9 +122,9 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
     //first, move the ball by the same velocity as the paddle to prevent the paddle from
     //moving into the ball's space
     Velocity2D paddle_vel = paddle.get_velocity();
-    translate2D(paddle_vel.x_vel*scale_factor*1.5,paddle_vel.y_vel*scale_factor*1.5);
+    translate2D(paddle_vel.x_vel*paddle_scale_factor*1.5,paddle_vel.y_vel*paddle_scale_factor*1.5);
 
-    float offset_distance;
+    float offset_distance=0;
     switch(min_index)
     {
         //back side
@@ -150,7 +150,7 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
     }
     
     translate2D(offset_distance*cos(paddle_angle),offset_distance*sin(paddle_angle));
-    
+   return true; 
 }
 
 //Calculate perpendicular distance from a line defined by two points
