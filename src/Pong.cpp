@@ -40,7 +40,9 @@ bool PAUSED = false;
 // global vars
 int ScreenWidth  = 600;
 int ScreenHeight = 600;
-
+int SERVE_NUM = 0;
+int LEFT_SCORE = 0;
+int RIGHT_SCORE = 0;
 // OpenGL callback function prototypes
 void showStartScreen();
 void showPausedStr();
@@ -54,6 +56,7 @@ void mouseclick( int button, int state, int x, int y );
 void mousedrag( int x, int y );
 void idle();
 void draw_outline();
+void reset_field();
 
 // useful graphics function prototypes
 void initOpenGL( void );
@@ -109,6 +112,7 @@ void initOpenGL( void )
 // callback function that tells OpenGL how to redraw window
 void display( void )
 {
+    glClear( GL_COLOR_BUFFER_BIT );
     // clear the display
     switch(GAMESTATE)
     {
@@ -124,7 +128,7 @@ void display( void )
     {
         showPausedStr();
     }
-    glClear( GL_COLOR_BUFFER_BIT );
+    //draw_scores();
     left_paddle.draw();
     right_paddle.draw();
     draw_outline();
@@ -172,12 +176,27 @@ void idle()
     if(GAMESTATE == 1 && !PAUSED)
     {
         ball.animate(scale_factor*BALL_WARP);
+        switch (ball.goal_made())
+        {
+        case 1:
+            LEFT_SCORE++;
+            SERVE_NUM++;
+            reset_field();
+            break;
+        case 2:
+            RIGHT_SCORE++;
+            SERVE_NUM++;
+            reset_field();
+            break;
+        default:
         left_paddle.animate(scale_factor*PADDLE_WARP);
         if(ball.check_paddle_collision( left_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
             left_paddle.shrink();
         right_paddle.animate(scale_factor*PADDLE_WARP);
         if(ball.check_paddle_collision( right_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
             right_paddle.shrink();
+        break;
+        }
     }
     last_time = new_time;
     glutPostRedisplay();
@@ -565,4 +584,19 @@ void mouseclick( int button, int state, int x, int y )
                 cerr << "mouse click: right release at (" << x << "," << y << ")\n";
             break;
     }
+}
+
+void reset_field()
+{
+    left_paddle.set_size(PADDLE_WIDTH,PADDLE_HEIGHT);
+    left_paddle.move2D(PADDLE_WIDTH,TOTAL_HEIGHT/2.0,0);
+    right_paddle.set_size(PADDLE_WIDTH,PADDLE_HEIGHT);
+    right_paddle.move2D(TOTAL_WIDTH-PADDLE_WIDTH,TOTAL_HEIGHT/2.0,0);
+    
+    ball.move2D( TOTAL_WIDTH/2.0, TOTAL_WIDTH/2.0, 0);
+    
+    if(SERVE_NUM % 2 == 0)
+        ball.set_velocity(-500,0,0);
+    else
+        ball.set_velocity(500,0,0);
 }

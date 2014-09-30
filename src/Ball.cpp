@@ -20,16 +20,14 @@ void Ball::animate(float timestep)
     point.x += vel.x_vel * timestep;
     point.y += vel.y_vel * timestep;
     point.yaw += vel.yaw_vel * timestep;
-
+    goal = 0;
     if( point.x <= left_limit )
     {
-        vel.x_vel *= -1;
-        point.x += left_limit - point.x;
+        goal = 1;
     }
     else if( point.x >= right_limit )
     {
-        vel.x_vel *= -1;
-        point.x += right_limit - point.x;
+        goal = 2;
     }
     if( point.y <= bottom_limit )
     {
@@ -42,6 +40,8 @@ void Ball::animate(float timestep)
         point.y += top_limit - point.y;
     }
 }
+
+int Ball::goal_made(){ return goal;}
 
 void Ball::set_limits(float left, float right, float bottom, float top)
 {

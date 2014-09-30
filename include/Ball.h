@@ -10,6 +10,7 @@ class Ball:public FilledCircle
         ~Ball();
 
     void animate(float timestep);
+    int goal_made();
     void set_limits(float left, float right, float bottom, float top);
     bool check_paddle_collision( Paddle& paddle, float ball_scale_factor, float paddle_scale_factor );
     private:
@@ -18,6 +19,7 @@ class Ball:public FilledCircle
     float bottom_limit;
     float top_limit;
     float calc_distance( Point2D p1, Point2D p2 );
+    int goal;
 };
 
 
