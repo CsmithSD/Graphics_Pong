@@ -33,6 +33,7 @@ Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE
 //0 - Game Not Started
 //1 - Game In Progress
 //2 - Game Ended
+float TIME_WARP = 1;
 int GAMESTATE = 0;
 bool PAUSED = false;
 // global vars
@@ -157,7 +158,7 @@ void idle()
     static clock_t last_time = clock();
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
-    float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
+    float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04)*TIME_WARP;
     
     if(GAMESTATE == 1 && !PAUSED)
     {
@@ -467,6 +468,12 @@ void keyboard( unsigned char key, int x, int y )
                 GAMESTATE = 1;
         break;
 
+        case '+':
+            TIME_WARP *=1.5;
+        break;
+        case '-':
+            TIME_WARP /=1.5;
+        break;
         //Right Paddle Keys
         case '7':
             right.yaw_vel += PADDLE_ROTATE_SPEED;
