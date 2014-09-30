@@ -7,6 +7,7 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 using namespace std;
 
 #define PADDLE_WIDTH 45
@@ -28,7 +29,7 @@ const int EscapeKey = 27;
 
 Ball ball(Point2D(TOTAL_WIDTH/2.0,TOTAL_HEIGHT/2.0),BALL_SIZE,Color(1,0,0),Velocity2D(500,500,0));
 Paddle left_paddle(Point2D(PADDLE_WIDTH,TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
-Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,0,1));
+Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,1));
 //Game state variable
 //0 - Game Not Started
 //1 - Game In Progress
@@ -57,6 +58,7 @@ void mousedrag( int x, int y );
 void idle();
 void draw_outline();
 void reset_field();
+void draw_scores();
 
 // useful graphics function prototypes
 void initOpenGL( void );
@@ -128,7 +130,7 @@ void display( void )
     {
         showPausedStr();
     }
-    //draw_scores();
+    draw_scores();
     left_paddle.draw();
     right_paddle.draw();
     draw_outline();
@@ -179,12 +181,12 @@ void idle()
         switch (ball.goal_made())
         {
         case 1:
-            LEFT_SCORE++;
+            RIGHT_SCORE++;
             SERVE_NUM++;
             reset_field();
             break;
         case 2:
-            RIGHT_SCORE++;
+            LEFT_SCORE++;
             SERVE_NUM++;
             reset_field();
             break;
@@ -200,6 +202,40 @@ void idle()
     }
     last_time = new_time;
     glutPostRedisplay();
+}
+
+void draw_scores()
+{
+    char left_str[10];
+    char right_str[10];
+    sprintf(left_str,"%d",LEFT_SCORE);
+    sprintf(right_str,"%d",RIGHT_SCORE);
+    glColor3f(0,1,0);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(200,1400,0);
+    glScalef(0.6,0.6,1);
+    glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)"Player 1");
+    glPopMatrix();
+    
+    glPushMatrix();
+    glTranslatef(200,1300,0);
+    glScalef(0.6,0.6,1);
+    glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)left_str);
+    glPopMatrix();
+
+    glColor3f(0,1,1);
+    glPushMatrix();
+    glTranslatef(800,1400,0);
+    glScalef(0.6,0.6,1);
+    glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)"Player 2");
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(800,1300,0);
+    glScalef(0.6,0.6,1);
+    glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)right_str); 
+    glPopMatrix();
 }
 
 void showPausedStr()
