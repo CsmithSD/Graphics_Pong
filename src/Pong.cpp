@@ -142,13 +142,21 @@ void draw_outline()
 
     //bottom right
     glVertex2f(TOTAL_WIDTH,BOTTOM_COURT_EDGE);
-
+    
     //Top right
     glVertex2f(0,TOP_COURT_EDGE);
 
     //top left 
     glVertex2f(TOTAL_WIDTH,TOP_COURT_EDGE);
     glEnd();
+    glEnable( GL_LINE_STIPPLE );
+    glLineStipple( 1, 0xFF00 );
+    glBegin(GL_LINES);
+
+    glVertex2f(TOTAL_WIDTH*.5, TOP_COURT_EDGE);
+    glVertex2f(TOTAL_WIDTH*.5, BOTTOM_COURT_EDGE);
+    glEnd();
+    glDisable(GL_LINE_STIPPLE);
 }
 
 void idle()
