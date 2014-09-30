@@ -121,6 +121,8 @@ void display( void )
         //Game not yet started
         case 0:       
             showStartScreen();
+            LEFT_SCORE = 0;
+            RIGHT_SCORE = 0;
             //Display Name
             //Display Controls
             break;
@@ -184,11 +186,15 @@ void idle()
             RIGHT_SCORE++;
             SERVE_NUM++;
             reset_field();
+            if( RIGHT_SCORE == 10 )
+                GAMESTATE = 0;
             break;
         case 2:
             LEFT_SCORE++;
             SERVE_NUM++;
             reset_field();
+            if( LEFT_SCORE == 10 )
+                GAMESTATE = 0;
             break;
         default:
         left_paddle.animate(scale_factor*PADDLE_WARP);
