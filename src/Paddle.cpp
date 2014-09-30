@@ -1,3 +1,13 @@
+/******************************************************************************
+* Function: Entity2D( Point2D point, Velocity2D vel )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Constructor for the Entity2D object
+* Arguments:
+    point: Midpoint of the object
+    vel: velocity of the object
+* ****************************************************************************/
+
+
 #include "../include/Paddle.h"
 #include <iostream>
 

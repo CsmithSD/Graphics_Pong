@@ -29,15 +29,18 @@ public:
     float get_yaw();
     Point2D get_point();
     Velocity2D get_velocity();
+    //setter
     void set_velocity(float x, float y, float yaw = 0);
-    //Movement
+    //virtual movement functions
     virtual void translate2D(float x, float y) = 0;
     virtual void rotate2D(float yaw) = 0;
     virtual void move2D(float x, float y, float yaw) = 0;
     virtual void animate(float timestep ) = 0;
 
 protected:
+    //contains the center point of all entity objects
     Point2D point;
+    //contains the velocity of all entity objects
     Velocity2D vel;
 };
 

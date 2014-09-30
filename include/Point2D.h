@@ -1,3 +1,13 @@
+/******************************************************************************
+* File: Point2D.h
+* Authors: Ian Carlson, Christopher Smith
+* Date: 09/16/14
+* Last Modified 09/16/14
+* Description: Header file of a struct that contains the center point and orientation
+* of a point
+* ****************************************************************************/
+
+
 #ifndef _POINT2D_H_
 #define _POINT2D_H_
 

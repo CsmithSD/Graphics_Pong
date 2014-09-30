@@ -1,3 +1,12 @@
+/******************************************************************************
+* File: Entity.cpp
+* Authors: Ian Carlson, Christopher Smith
+* Date: 09/16/14
+* Last Modified 09/16/14
+* Description: Header File that contains all the includes and global variables
+* for Pong.cpp
+* ****************************************************************************/
+
 //Class include files
 #include "Paddle.h"
 #include "Ball.h"

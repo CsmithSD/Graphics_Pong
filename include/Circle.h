@@ -3,9 +3,9 @@
  * Authors: Ian Carlson, Christopher Smith
  * Date: 09/16/14
  * Last Modified: 09/16/14
- * Description: Header file for the Circle class.
+ * Description: Header file for the Circle class with class definition
  * Inherits: Entity2D.h
- * Inherited by:
+ * Inherited by: FilledCircle
  * ***************************************************************************/
 #ifndef _CIRCLE_H_
 #define _CIRCLE_H_

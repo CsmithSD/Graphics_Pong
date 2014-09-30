@@ -1,6 +1,24 @@
+/******************************************************************************
+* File: Ball.cpp
+* Authors: Ian Carlson, Christopher Smith
+* Date: 09/16/14
+* Last Modified 09/30/14
+* Description: Source file for the Ball class
+* ****************************************************************************/
+
 #include "../include/Ball.h"
 
 
+/******************************************************************************
+* Function: Ball(Point2D point, float radius, Color color, Velocity2D vel)
+* Authors: Ian Carlson, Christopher Smith
+* Description: Constructor for the Ball class.
+* Arguments:
+*   point: Center Point of the Ball
+*   radius: Radius of the ball
+*   color: Fill and outline color to be used
+*   vel: Starting velocity of the ball
+* ****************************************************************************/
 Ball::Ball(Point2D point, float radius, Color color, Velocity2D vel ):
     FilledCircle(point,radius,color,vel)
 {
@@ -9,26 +27,43 @@ Ball::Ball(Point2D point, float radius, Color color, Velocity2D vel ):
     top_limit = 0;
     bottom_limit = 0;
 }
+/******************************************************************************
+* Function: ~Ball()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Deconstructor for the Ball class
+* ****************************************************************************/
 
 Ball::~Ball()
 {
 
 }
 
+/******************************************************************************
+* File: Entity.cpp
+* Authors: Ian Carlson, Christopher Smith
+* Description: This function moves the ball in its x and y velocity values,
+* while keeping it within its limits
+* Arguments:
+    timestep: time that has passed since last animate function call
+* ****************************************************************************/
 void Ball::animate(float timestep)
 {
     point.x += vel.x_vel * timestep;
     point.y += vel.y_vel * timestep;
     point.yaw += vel.yaw_vel * timestep;
+    //no goal is made as of yet
     goal = 0;
+    //if the ball crosses left goal line Right player scores
     if( point.x <= left_limit )
     {
         goal = 1;
     }
+    //else if ball crosses right goal line Left player scores
     else if( point.x >= right_limit )
     {
         goal = 2;
     }
+    //Reflects ball when it hits top and bottom limits
     if( point.y <= bottom_limit )
     {
         vel.y_vel *= -1;
@@ -41,9 +76,26 @@ void Ball::animate(float timestep)
     }
 }
 
-int Ball::goal_made() {
+/******************************************************************************
+* File: Entity.cpp
+* Authors: Ian Carlson, Christopher Smith
+* Description: Returns what is stored so that goal is detected or not
+* ****************************************************************************/
+
+int Ball::goal_made() 
+{
     return goal;
 }
+/******************************************************************************
+* Function set_limits( float left, float right, float bottom, float top)
+* Authors: Ian Carlson, Christopher Smith
+* Description: This function sets the boundries that the ball can not pass
+* Arguments:
+    left: Left boundrary (goal line) for ball
+    right: Right boundrary ( goal line) for ball
+    bottom: Bottom boundrary of the court for ball
+    top: Top boundrary of the cort for ball
+* ****************************************************************************/
 
 void Ball::set_limits(float left, float right, float bottom, float top)
 {
@@ -52,16 +104,31 @@ void Ball::set_limits(float left, float right, float bottom, float top)
     top_limit = top;
     bottom_limit = bottom;
 }
+/******************************************************************************
+* Function: check_paddle_collision( Paddle& paddle , float ball_scale_factor, float paddle_scale_factor )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Checks if the ball has hit the paddle and reflects its based on
+* angle of paddle and velocity of both the paddle and the ball.
+* Arguments:
+*   paddle: Paddle object so that the location is known to the ball
+*   ball_scale_factor: Timestep the ball is on times its speed boost
+*   paddle_scale_factor: Timestep the Paddle is on times its speed boost
+* ****************************************************************************/
 
 bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, float paddle_scale_factor)
 {
     float distance[4];
     Point2D bl,br,tl,tr;
-    paddle.get_corners(bl,br,tl,tr);
 
+    //gets the corners of the paddle
+    paddle.get_corners(bl,br,tl,tr);
+    //Perpendicular distance from the left edge of paddle to center of ball
     distance[0] = calc_distance( bl, tl );
+    //Perpendicular distance from the top edge of paddle to the center of ball
     distance[1] = calc_distance( tl, tr);
+    //Perpendicular distance from the right edge of paddle to the center of ball
     distance[2] = calc_distance( tr, br);
+    //Perpendicular distance from the bottom edge of paddle to the center of ball
     distance[3] = calc_distance( br, bl );
 
     //check left/right envelope
@@ -155,6 +222,18 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
     return true;
 }
 
+
+
+/******************************************************************************
+* Function: calc_distance(Point2D p1, Point2D p2)
+* Authors: Ian Carlson, Christopher Smith
+* Description: Calcultes teh perpendicular distance from a line defined by
+* two points to the cetner of the circle
+* Arguments:
+*   p1: First point of the line defined by two points
+*   p2: Second point of the line defined by two points
+* ****************************************************************************/
+
 //Calculate perpendicular distance from a line defined by two points
 //to another point
 float Ball::calc_distance(Point2D p1, Point2D p2)
@@ -162,6 +241,7 @@ float Ball::calc_distance(Point2D p1, Point2D p2)
     float dx = p2.x - p1.x;
     float dy = p2.y - p1.y;
     float distance = ( dy*point.x - dx*point.y - (p1.x*p2.y) + ( p2.x*p1.y ) );
+    //Absolute value of distance
     if( distance < 0 )
         distance *=-1;
 

@@ -2,10 +2,10 @@
  * File: Rectangle.h
  * Authors: Ian Carlson, Christopher Smith
  * Date: 09/16/14
- * Last Modified: 09/16/14
+ * Last Modified: 09/30/14
  * Description: Header file for the Rectangle class.
  * Inherits: Entity2D.h
- * Inherited by:
+ * Inherited by: FilledRectangle
  * ***************************************************************************/
 
 #ifndef _RECTANGLE_H_
@@ -38,11 +38,13 @@ public:
     Color get_color();
     void get_corners(Point2D & bl, Point2D & br, Point2D & tl, Point2D & tr);
 protected:
+    //Width/Height & outline color of Rectangle
     float width;
     float height;
     Color color;
 
 private:
+    //Corner points so they don't get recalculated multiple times
     void update_corners();
     Point2D bl_corner;
     Point2D br_corner;

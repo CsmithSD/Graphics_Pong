@@ -1,3 +1,14 @@
+/******************************************************************************
+* File: FilledCircle.h
+* Authors: Ian Carlson, Christopher Smith
+* Date: 09/16/14
+* Last Modified 09/16/14
+* Description: Header File for FilledCircle class\
+* Inherits: Circle
+* ****************************************************************************/
+
+
+
 #ifndef _FILLED_CIRCLE_H_
 #define _FILLED_CIRCLE_H_
 
@@ -17,6 +28,7 @@ public:
     Color get_fill_color();
 
 private:
+    //Contains the fill color
     Color color;
 };
 
