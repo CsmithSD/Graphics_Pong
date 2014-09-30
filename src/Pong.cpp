@@ -10,7 +10,6 @@
 * Authors: Ian Carlson, Christopher Smith
 * Description: Start of the Pong game that creates the limits for all objects
 * ****************************************************************************/
-
 int main( int argc, char *argv[] )
 {
     //limits for all game objects so they stay on screen
@@ -28,8 +27,6 @@ int main( int argc, char *argv[] )
     // yeah I know, but it keeps compilers from bitching
     return 0;
 }
-
-/******************************************************************************/
 
 /******************************************************************************
 * Function: Entity2D( Point2D point, Velocity2D vel )
@@ -62,6 +59,11 @@ void initOpenGL( void )
 /*                          OpenGL callback functions                         */
 /******************************************************************************/
 
+/******************************************************************************
+* Function: display( )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Displays the game based on the state of it
+* ****************************************************************************/
 // callback function that tells OpenGL how to redraw window
 void display( void )
 {
@@ -92,6 +94,11 @@ void display( void )
     glutSwapBuffers();
 }
 
+/******************************************************************************
+* Function: draw_outline()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Draws the outline for the court boundraies and the half court line
+* ****************************************************************************/
 void draw_outline()
 {
     glColor3f(1,1,1);
@@ -109,6 +116,8 @@ void draw_outline()
     glVertex2f(TOTAL_WIDTH,TOP_COURT_EDGE);
     glEnd();
     glEnable( GL_LINE_STIPPLE );
+
+    //Half court line
     glLineStipple( 1, 0xFF00 );
     glBegin(GL_LINES);
 
@@ -118,6 +127,11 @@ void draw_outline()
     glDisable(GL_LINE_STIPPLE);
 }
 
+/******************************************************************************
+* Function: idle()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Animates all the playing objects
+* ****************************************************************************/
 void idle()
 {
     //We want the screen to update as quickly as possible, but
@@ -133,6 +147,7 @@ void idle()
         ball.animate(scale_factor*BALL_WARP);
         switch (ball.goal_made())
         {
+        //if the right player scores
         case 1:
             RIGHT_SCORE++;
             SERVE_NUM++;
@@ -140,6 +155,7 @@ void idle()
             if( RIGHT_SCORE == 10 )
                 GAMESTATE = 0;
             break;
+        //if the left player scores
         case 2:
             LEFT_SCORE++;
             SERVE_NUM++;
@@ -147,8 +163,10 @@ void idle()
             if( LEFT_SCORE == 10 )
                 GAMESTATE = 0;
             break;
+        //if no one scores during the ball's animate call the paddles move and then collision is checked
         default:
             left_paddle.animate(scale_factor*PADDLE_WARP);
+            //Shrinks the paddle by 10% if the ball strikes it
             if(ball.check_paddle_collision( left_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
                 left_paddle.shrink();
             right_paddle.animate(scale_factor*PADDLE_WARP);
@@ -161,12 +179,19 @@ void idle()
     glutPostRedisplay();
 }
 
+/******************************************************************************
+* Function: draw_scores()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Displays the scores to the screen
+* ****************************************************************************/
 void draw_scores()
 {
     char left_str[10];
     char right_str[10];
     sprintf(left_str,"%d",LEFT_SCORE);
     sprintf(right_str,"%d",RIGHT_SCORE);
+
+    //Displays the Player 1 string to the screen
     glColor3f(0,1,0);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -175,12 +200,14 @@ void draw_scores()
     glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)"Player 1");
     glPopMatrix();
 
+    //Displays the Player 1 score to the screen
     glPushMatrix();
     glTranslatef(200,1300,0);
     glScalef(0.6,0.6,1);
     glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)left_str);
     glPopMatrix();
 
+    //Displays the Player 2 string to the screen
     glColor3f(0,1,1);
     glPushMatrix();
     glTranslatef(800,1400,0);
@@ -188,6 +215,7 @@ void draw_scores()
     glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)"Player 2");
     glPopMatrix();
 
+    //Displays the Player 2 score to the screen
     glPushMatrix();
     glTranslatef(800,1300,0);
     glScalef(0.6,0.6,1);
@@ -195,6 +223,11 @@ void draw_scores()
     glPopMatrix();
 }
 
+/******************************************************************************
+* Function: showPausedStr()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Displays that the game is paused when paused
+* ****************************************************************************/
 void showPausedStr()
 {
     glColor3f(1,1,1);
@@ -206,6 +239,11 @@ void showPausedStr()
     glPopMatrix();
 }
 
+/******************************************************************************
+* Function: showStartScreen()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Displays the start screen for controls of game
+* ****************************************************************************/
 void showStartScreen()
 {
     glColor3f(1,1,1 );
@@ -218,6 +256,14 @@ void showStartScreen()
     // while ( *string ) glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_24, *string++ );
 }
 
+/******************************************************************************
+* Function: reshape( int w, int h)
+* Authors: Ian Carlson, Christopher Smith
+* Description: Resizes the screen
+* Arguments:
+    w: width of the screen
+    h: height of the screen
+* ****************************************************************************/
 // callback function that tells OpenGL how to resize window
 // note that this is called when the window is first created
 void reshape( int w, int h )
@@ -248,6 +294,15 @@ void reshape( int w, int h )
 
 /******************************************************************************/
 
+/******************************************************************************
+* Function: special_keyboard( int key, int x, int y )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Handles the numpad and arrow keys for moving right paddle
+* Arguments:
+*   key: code of the key that was pressed
+*   x: x coordinate the key was pressed at
+*   y: y coordinate the key was pressed at
+* ****************************************************************************/
 void special_keyboard( int key, int x, int y)
 {
     y = ScreenHeight -y;
@@ -298,6 +353,15 @@ void special_keyboard( int key, int x, int y)
     right_paddle.set_velocity(right.x_vel, right.y_vel, right.yaw_vel);
 }
 
+/******************************************************************************
+* Function: special_keyboardUp( int key, int x, int y )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Handles the numpad and arrow keys for moving right paddle on release
+* Arguments:
+*   key: code of the key that was released
+*   x: x coordinate the key was released at
+*   y: y coordinate the key was released at
+* ****************************************************************************/
 void special_keyboardUp( int key, int x, int y)
 {
     y = ScreenHeight -y;
@@ -348,6 +412,15 @@ void special_keyboardUp( int key, int x, int y)
     right_paddle.set_velocity(right.x_vel, right.y_vel, right.yaw_vel);
 }
 
+/******************************************************************************
+* Function: keyboardUp( unsigned char key, int x, int y )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Handles the regular keys
+* Arguments:
+*   key: code of the key that was pressed
+*   x: x coordinate the key was pressed at
+*   y: y coordinate the key was pressed at
+* ****************************************************************************/
 void keyboardUp(unsigned char key, int x, int y)
 {
     // correct for upside-down screen coordinates
@@ -432,6 +505,15 @@ void keyboardUp(unsigned char key, int x, int y)
     right_paddle.set_velocity(right.x_vel,right.y_vel,right.yaw_vel);
     left_paddle.set_velocity(left.x_vel,left.y_vel,left.yaw_vel);
 }
+/******************************************************************************
+* Function: keyboard( unsigned chart key, int x, int y )
+* Authors: Ian Carlson, Christopher Smith
+* Description: Handles the normal key presses for pong
+* Arguments:
+*   key: code of the key that was pressed
+*   x: x coordinate the key was pressed at
+*   y: y coordinate the key was pressed at
+* ****************************************************************************/
 
 // callback function that tells OpenGL how to handle keystrokes
 void keyboard( unsigned char key, int x, int y )
@@ -554,31 +636,12 @@ void keyboard( unsigned char key, int x, int y )
 
 /******************************************************************************/
 
-// callback function for mouse button click events
-void mouseclick( int button, int state, int x, int y )
-{
-    // correct for upside-down screen coordinates
-    y = ScreenHeight - y;
 
-    // handle mouse click events
-    switch ( button )
-    {
-    case GLUT_LEFT_BUTTON:              // left button
-        if ( state == GLUT_DOWN )           // press
-            cerr << "mouse click: left press at    (" << x << "," << y << ")\n";
-        else if ( state == GLUT_UP )        // release
-            cerr << "mouse click: left release at  (" << x << "," << y << ")\n";
-        break;
-
-    case GLUT_RIGHT_BUTTON:             // right button
-        if ( state == GLUT_DOWN )           // press
-            cerr << "mouse click: right press at   (" << x << "," << y << ")\n";
-        else if ( state == GLUT_UP )        // release
-            cerr << "mouse click: right release at (" << x << "," << y << ")\n";
-        break;
-    }
-}
-
+/******************************************************************************
+* Function: reset_field()
+* Authors: Ian Carlson, Christopher Smith
+* Description: Resets the game back to start if a goal is scored.
+* ****************************************************************************/
 void reset_field()
 {
     left_paddle.set_size(PADDLE_WIDTH,PADDLE_HEIGHT);
