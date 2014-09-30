@@ -162,8 +162,6 @@ void idle()
     if(GAMESTATE == 1 && !PAUSED)
     {
         ball.animate(scale_factor);
-	    ball.check_paddle_collision( left_paddle , scale_factor);
-	    ball.check_paddle_collision( right_paddle , scale_factor);
         left_paddle.animate(scale_factor);
 	    ball.check_paddle_collision( left_paddle , scale_factor);
         right_paddle.animate(scale_factor);

@@ -75,6 +75,10 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
         //no collision, return
         return;
     }
+
+    //first, step the ball back to where it was on the previous time step
+    //to try to avoid getting inside the paddle
+    translate2D(-vel.x_vel*scale_factor,-vel.y_vel*scale_factor);
     
     //If we reach here, the ball has collided with the paddle and needs to reflect
     //assume we hit the edge with the smallest distance
@@ -115,6 +119,11 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
 
     //Now, just nudge the ball back out of the paddle so it doesn't get
     //stuck in the paddle or go through it
+    //first, move the ball by the same velocity as the paddle to prevent the paddle from
+    //moving into the ball's space
+    Velocity2D paddle_vel = paddle.get_velocity();
+    translate2D(paddle_vel.x_vel*scale_factor*1.5,paddle_vel.y_vel*scale_factor*1.5);
+
     float offset_distance;
     switch(min_index)
     {
@@ -141,7 +150,7 @@ void Ball::check_paddle_collision( Paddle& paddle , float scale_factor)
     }
     
     translate2D(offset_distance*cos(paddle_angle),offset_distance*sin(paddle_angle));
-
+    
 }
 
 //Calculate perpendicular distance from a line defined by two points
