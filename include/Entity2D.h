@@ -5,7 +5,7 @@
  * Date: 09/16/14
  * Last Modified: 09/16/14
  * Description: Header file for the Entity2D class, the parent of all
- * drawable objects for our programs. 
+ * drawable objects for our programs.
  * ***************************************************************************/
 
 #ifndef _ENTITY_2D_
@@ -15,7 +15,7 @@
 #include <math.h>
 class Entity2D
 {
-    public:
+public:
     //Virtual Functions
     virtual void draw() = 0;
 
@@ -36,7 +36,7 @@ class Entity2D
     virtual void move2D(float x, float y, float yaw) = 0;
     virtual void animate(float timestep ) = 0;
 
-    protected:
+protected:
     Point2D point;
     Velocity2D vel;
 };

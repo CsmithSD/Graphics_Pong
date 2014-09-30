@@ -5,7 +5,7 @@
 
 class FilledCircle : public Circle
 {
-    public:
+public:
     FilledCircle(Point2D point = Point2D(), float radius = 0, Color color = Color(1,1,1), Velocity2D vel = Velocity2D() );
     ~FilledCircle();
 
@@ -16,7 +16,7 @@ class FilledCircle : public Circle
     Color get_outline_color();
     Color get_fill_color();
 
-    private:
+private:
     Color color;
 };
 

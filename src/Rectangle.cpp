@@ -11,7 +11,7 @@
 
 
 Rectangle::Rectangle( Point2D point, float width, float height, Color color, Velocity2D vel):
-                      Entity2D( point, vel ), width(width), height(height), color(color)
+    Entity2D( point, vel ), width(width), height(height), color(color)
 {
     update_corners();
 }
@@ -70,11 +70,11 @@ void Rectangle::draw()
     Point2D bl,br,tl,tr;
     get_corners(bl,br,tl,tr);
     glColor3f(color.r, color.g, color.b);
-        glBegin( GL_LINE_LOOP );
-        glVertex2f(bl.x,bl.y);
-        glVertex2f(tl.x,tl.y);
-        glVertex2f(tr.x,tr.y);
-        glVertex2f(br.x,br.y);
+    glBegin( GL_LINE_LOOP );
+    glVertex2f(bl.x,bl.y);
+    glVertex2f(tl.x,tl.y);
+    glVertex2f(tr.x,tr.y);
+    glVertex2f(br.x,br.y);
     glEnd();
 }
 
@@ -103,7 +103,9 @@ void Rectangle::move2D( float x, float y, float yaw )
     update_corners();
 }
 
-Color Rectangle::get_color(){ return color; }
+Color Rectangle::get_color() {
+    return color;
+}
 
 void Rectangle::set_color(float r, float g, float b)
 {
@@ -112,8 +114,12 @@ void Rectangle::set_color(float r, float g, float b)
     color.b = b;
 }
 
-float Rectangle::get_width(){ return width; }
-float Rectangle::get_height(){ return height; }
+float Rectangle::get_width() {
+    return width;
+}
+float Rectangle::get_height() {
+    return height;
+}
 
 void Rectangle::set_width(float width)
 {
@@ -122,8 +128,8 @@ void Rectangle::set_width(float width)
 }
 void Rectangle::set_height(float height)
 {
-     this->height = height;
-     update_corners();
+    this->height = height;
+    update_corners();
 }
 
 void Rectangle::set_size(float width, float height)

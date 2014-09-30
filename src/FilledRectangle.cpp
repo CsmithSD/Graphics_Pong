@@ -1,8 +1,8 @@
 #include "../include/FilledRectangle.h"
 
-FilledRectangle::FilledRectangle(Point2D point, float width, float height, Color color, Velocity2D vel): Rectangle(point,width,height,color,vel),color(color) 
+FilledRectangle::FilledRectangle(Point2D point, float width, float height, Color color, Velocity2D vel): Rectangle(point,width,height,color,vel),color(color)
 {
-    
+
 }
 
 FilledRectangle::~FilledRectangle()
@@ -11,16 +11,16 @@ FilledRectangle::~FilledRectangle()
 }
 
 void FilledRectangle::draw()
-{    
+{
     Point2D bl,br,tl,tr;
     get_corners(bl,br,tl,tr);
     glColor3f(color.r, color.g, color.b);
-    
+
     glBegin( GL_POLYGON );
-        glVertex2f(bl.x,bl.y);
-        glVertex2f(tl.x,tl.y);
-        glVertex2f(tr.x,tr.y);
-        glVertex2f(br.x,br.y);
+    glVertex2f(bl.x,bl.y);
+    glVertex2f(tl.x,tl.y);
+    glVertex2f(tr.x,tr.y);
+    glVertex2f(br.x,br.y);
     glEnd();
     Rectangle::draw();
 }

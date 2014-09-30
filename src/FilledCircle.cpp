@@ -1,9 +1,9 @@
 #include "../include/FilledCircle.h"
 
 FilledCircle::FilledCircle(Point2D point, float radius, Color color, Velocity2D vel):
-        Circle(point, radius, color, vel), color(color)
+    Circle(point, radius, color, vel), color(color)
 {
-    
+
 }
 
 FilledCircle::~FilledCircle()
@@ -35,7 +35,7 @@ void FilledCircle::set_color(float r, float g, float b)
     color.r = r;
     color.g = g;
     color.b = b;
-    Circle::set_color(r,g,b);    
+    Circle::set_color(r,g,b);
 }
 
 void FilledCircle::set_outline_color(float r, float g, float b)

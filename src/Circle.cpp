@@ -10,12 +10,12 @@
 #include "../include/Circle.h"
 
 Circle::Circle(Point2D point, float radius, Color color, Velocity2D vel):
-         Entity2D(point, vel), radius(radius), color(color)
+    Entity2D(point, vel), radius(radius), color(color)
 {
 
 }
 
-Circle::~Circle(){}
+Circle::~Circle() {}
 
 void Circle::draw()
 {
@@ -69,5 +69,9 @@ Color Circle::get_color()
     return color;
 }
 
-float Circle::get_radius(){ return radius; }
-void Circle::set_radius( float radius){ this->radius = radius; }
+float Circle::get_radius() {
+    return radius;
+}
+void Circle::set_radius( float radius) {
+    this->radius = radius;
+}

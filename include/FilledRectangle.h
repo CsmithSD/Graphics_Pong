@@ -5,7 +5,7 @@
 
 class FilledRectangle : public Rectangle
 {
-    public:
+public:
     FilledRectangle(Point2D point = Point2D(), float width = 0, float height = 0, Color color = Color(1,1,1),Velocity2D vel = Velocity2D());
     ~FilledRectangle();
 
@@ -15,8 +15,8 @@ class FilledRectangle : public Rectangle
     void set_fill_color(float r = 0, float g = 0, float b = 0);
     Color get_outline_color();
     Color get_fill_color();
-    
-    private:
+
+private:
     Color color;
 };
 

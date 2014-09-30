@@ -41,7 +41,9 @@ void Ball::animate(float timestep)
     }
 }
 
-int Ball::goal_made(){ return goal;}
+int Ball::goal_made() {
+    return goal;
+}
 
 void Ball::set_limits(float left, float right, float bottom, float top)
 {
@@ -61,7 +63,7 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
     distance[1] = calc_distance( tl, tr);
     distance[2] = calc_distance( tr, br);
     distance[3] = calc_distance( br, bl );
-    
+
     //check left/right envelope
     if(distance[1] > paddle.get_height() + 2*radius || distance[3] > paddle.get_height() + 2*radius)
     {
@@ -79,7 +81,7 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
     //first, step the ball back to where it was on the previous time step
     //to try to avoid getting inside the paddle
     translate2D(-vel.x_vel*ball_scale_factor,-vel.y_vel*ball_scale_factor);
-    
+
     //If we reach here, the ball has collided with the paddle and needs to reflect
     //assume we hit the edge with the smallest distance
     int min_index = 0;
@@ -106,7 +108,7 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
     //the ball's inverted angle of travel
     if(abs(bat - paddle_angle) < abs(paddle_angle - bat))
     {
-        new_angle = paddle_angle + (bat - paddle_angle);   
+        new_angle = paddle_angle + (bat - paddle_angle);
     }
     else
     {
@@ -115,7 +117,7 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
 
     float old_vel_mag = sqrt(vel.x_vel*vel.x_vel + vel.y_vel*vel.y_vel);
     vel.x_vel = old_vel_mag*cos(new_angle);
-    vel.y_vel = old_vel_mag*sin(new_angle);      
+    vel.y_vel = old_vel_mag*sin(new_angle);
 
     //Now, just nudge the ball back out of the paddle so it doesn't get
     //stuck in the paddle or go through it
@@ -127,30 +129,30 @@ bool Ball::check_paddle_collision( Paddle& paddle , float ball_scale_factor, flo
     float offset_distance=0;
     switch(min_index)
     {
-        //back side
-        case 0:
-            offset_distance = (distance[0] - radius)*1.5;
-            paddle_angle = paddle.get_yaw() + M_PI;
+    //back side
+    case 0:
+        offset_distance = (distance[0] - radius)*1.5;
+        paddle_angle = paddle.get_yaw() + M_PI;
         break;
-        //top
-        case 1:
-            offset_distance = (distance[1] - radius)*1.5;
-            paddle_angle = paddle.get_yaw() + M_PI/2.0;
+    //top
+    case 1:
+        offset_distance = (distance[1] - radius)*1.5;
+        paddle_angle = paddle.get_yaw() + M_PI/2.0;
         break;
-        //front
-        case 2:
-            offset_distance = (distance[2] - radius)*1.5;
-            paddle_angle = paddle.get_yaw();
+    //front
+    case 2:
+        offset_distance = (distance[2] - radius)*1.5;
+        paddle_angle = paddle.get_yaw();
         break;
-        //bottom
-        case 3:
-            offset_distance = (distance[3] - radius)*1.5;
-            paddle_angle = paddle.get_yaw() - M_PI/2.0;
+    //bottom
+    case 3:
+        offset_distance = (distance[3] - radius)*1.5;
+        paddle_angle = paddle.get_yaw() - M_PI/2.0;
         break;
     }
-    
+
     translate2D(offset_distance*cos(paddle_angle),offset_distance*sin(paddle_angle));
-   return true; 
+    return true;
 }
 
 //Calculate perpendicular distance from a line defined by two points

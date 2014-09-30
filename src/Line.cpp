@@ -1,7 +1,7 @@
 #include "../include/Line.h"
 
 Line::Line(Point2D p1, Point2D p2, Color color, Velocity2D vel )
-        : Entity2D(Point2D(), vel), p1(p1), p2(p2), color(color)
+    : Entity2D(Point2D(), vel), p1(p1), p2(p2), color(color)
 {
     calculate_midpoint();
 }
@@ -50,7 +50,7 @@ void Line::translate2D( float x, float y )
 {
     p1.x += x;
     p2.x += x;
-    
+
     p1.y += y;
     p2.y += y;
     calculate_midpoint();
@@ -63,13 +63,13 @@ void Line::rotate2D( float yaw )
         yaw +=  ( M_PI *2 );
     while( this -> yaw >  ( M_PI * 2 ) )
         yaw -= ( M_PI * 2  )
-}
+    }
 
 void Line::move2D( float x, float y, float yaw );
 {
     p1.x += x;
     p2.x += x;
-    
+
     p1.y += y;
     p2.y += y;
 
@@ -78,7 +78,7 @@ void Line::move2D( float x, float y, float yaw );
         p1.yaw +=  ( M_PI << 1 );
     while( p1.yaw >  ( M_PI << 1 ) )
         p1.yaw -= ( M_PI << 1 )
-    calculate_midpoint();
+                  calculate_midpoint();
 }
 
 void Line::translate2Dp1(float x, float y)
@@ -105,7 +105,7 @@ void Line::move2Dp1( float x, float y, float yaw)
     while( this -> yaw >  ( M_PI * 2 ) )
         yaw -= ( M_PI * 2 )
 
-}
+    }
 
 void Line::move2Dp2( float x, floaty, float yaw)
 {
@@ -117,4 +117,4 @@ void Line::move2Dp2( float x, floaty, float yaw)
     while( this -> yaw >  ( M_PI * 2 ) )
         yaw -= ( M_PI * 2 )
 
-}
+    }

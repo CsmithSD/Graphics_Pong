@@ -2,7 +2,7 @@
 #include <iostream>
 
 Paddle::Paddle(Point2D point, float width, float height, Color color, Velocity2D vel ):
-                FilledRectangle(point,width,height,color,vel)
+    FilledRectangle(point,width,height,color,vel)
 {
     left_limit = 0;
     right_limit = 0;

@@ -3,7 +3,7 @@
  * Authors: Ian Carlson, Christopher Smith
  * Date: 09/16/14
  * Last Modified: 09/16/14
- * Description: Header file for the Entity3D class, the parent of all 
+ * Description: Header file for the Entity3D class, the parent of all
  * 3D drawable objects for our programs.
  * Inherits From: Entity2D
  * Inherited By: None (Yet)
@@ -19,8 +19,8 @@ class Entity3D : public Entity2D
     virtual void draw() = 0;
 
     //Functions
-    public:
-    Entity3D(float x = 0, float y = 0, float z = 0, 
+public:
+    Entity3D(float x = 0, float y = 0, float z = 0,
              float roll = 0, float pitch = 0, float yaw = 0);
     ~Entity();
 
@@ -41,7 +41,7 @@ class Entity3D : public Entity2D
                 float roll, float pitch, float yaw);
 
     //Variables
-    private:
+private:
     float z;
     float pitch;
     float roll;

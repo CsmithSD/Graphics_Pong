@@ -5,7 +5,7 @@
  * Last Modified: 09/16/14
  * Description: Header file for the Circle class.
  * Inherits: Entity2D.h
- * Inherited by: 
+ * Inherited by:
  * ***************************************************************************/
 #ifndef _CIRCLE_H_
 #define _CIRCLE_H_
@@ -16,7 +16,7 @@
 #include <GL/freeglut.h>
 class Circle : public Entity2D
 {
-    public:
+public:
     Circle(Point2D point = Point2D(), float radius = 0, Color color = Color(1,1,1), Velocity2D velocity = Velocity2D() );
     ~Circle();
     //Implemnted virtual functions
@@ -30,7 +30,7 @@ class Circle : public Entity2D
     float get_radius();
     void set_radius(float radius);
 
-    protected:
+protected:
     float radius;
     Color color;
 };
