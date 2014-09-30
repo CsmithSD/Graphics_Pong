@@ -9,8 +9,8 @@
 #include <vector>
 using namespace std;
 
-#define PADDLE_WIDTH 20
-#define PADDLE_HEIGHT 150
+#define PADDLE_WIDTH 45
+#define PADDLE_HEIGHT 160
 #define TOTAL_WIDTH 1600
 #define TOTAL_HEIGHT 1600
 #define BOTTOM_COURT_EDGE 300
@@ -123,12 +123,12 @@ void display( void )
         showPausedStr();
     }
     glClear( GL_COLOR_BUFFER_BIT );
-    ball.draw();
     left_paddle.draw();
     right_paddle.draw();
     draw_outline();
-    glutSwapBuffers();
+    ball.draw();
     glFlush();
+    glutSwapBuffers();
 }
 
 void draw_outline()
@@ -162,10 +162,12 @@ void idle()
     if(GAMESTATE == 1 && !PAUSED)
     {
         ball.animate(scale_factor);
+	    ball.check_paddle_collision( left_paddle , scale_factor);
+	    ball.check_paddle_collision( right_paddle , scale_factor);
         left_paddle.animate(scale_factor);
+	    ball.check_paddle_collision( left_paddle , scale_factor);
         right_paddle.animate(scale_factor);
-	ball.check_paddle_collision( left_paddle );
-	ball.check_paddle_collision( right_paddle );
+	    ball.check_paddle_collision( right_paddle , scale_factor);
     }
     last_time = new_time;
     glutPostRedisplay();
@@ -486,11 +488,6 @@ void keyboard( unsigned char key, int x, int y )
         case '8':
             right.y_vel += PADDLE_SPEED;
         break;
-   
-        // anything else redraws window
-        default:
-            glutPostRedisplay();
-            break;
     }
     if(left.x_vel > PADDLE_SPEED)
         left.x_vel = PADDLE_SPEED;

@@ -14,8 +14,8 @@ LINK = g++
 
 # Turn on optimization and warnings (add -g for debugging with gdb):
 # CPPFLAGS = 		# preprocessor flags
-CFLAGS = -O -Wall
-CXXFLAGS = -O -Wall
+CFLAGS = -g -O -Wall
+CXXFLAGS = -g -O -Wall
 
 # OpenGL/Mesa libraries for Linux:
 GL_LIBS = -lglut -lGLU -lGL -lm

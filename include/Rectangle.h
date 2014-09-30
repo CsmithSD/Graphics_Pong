@@ -36,10 +36,17 @@ class Rectangle : public Entity2D
         float get_width();
         float get_height();
         Color get_color();
-
+        void get_corners(Point2D & bl, Point2D & br, Point2D & tl, Point2D & tr);
     protected:
         float width;
         float height;
         Color color;
+
+    private:
+    void update_corners();
+    Point2D bl_corner;
+    Point2D br_corner;
+    Point2D tr_corner;
+    Point2D tl_corner;
 };
 #endif

@@ -17,70 +17,66 @@ Paddle::~Paddle()
 
 void Paddle::animate( float timestep )
 {
-    point.x += vel.x_vel * timestep;
-    point.y += vel.y_vel * timestep;
-    point.yaw += vel.yaw_vel * timestep;
+    Point2D bl,br,tl,tr;
+    translate2D(vel.x_vel*timestep,vel.y_vel*timestep);
+    rotate2D(vel.yaw_vel*timestep);
+    get_corners(bl,br,tl,tr);
 
-    float x,y,rotated_x,rotated_y;
-    //Precalculate sin and cos, 1/2 w and h
-    float c = cos(point.yaw);
-    float s = sin(point.yaw);
-    float w = 0.5*width;
-    float h = 0.5*height;
-    
-    //Bottom Left Corner
-    x = - w;
-    y = - h;
-    rotated_x = x*c - y*s;
-    rotated_y = x*s + y*c;
-    if(  point.x+rotated_x < left_limit )
-        point.x += left_limit - (rotated_x + point.x );
-    else if(  point.x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x +  point.x );
-    if(  point.y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y +  point.y );
-    else if(  point.y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y +  point.y );
-    //Top Left Corner
-    //x = w; - don't need to recalculate
-    y = h;
-    rotated_x = x*c - y*s;
-    rotated_y = x*s + y*c;
-    if(  point.x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x +  point.x );
-    else if(  point.x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x +  point.x );
-    if(  point.y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + point.y );
-    else if(  point.y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y +  point.y );
-    //Top Right Corner
-    x = w;
-    //y = point.y + h; - don't need to recalculate
-    rotated_x = x*c - y*s;
-    rotated_y = x*s + y*c;
-    if(  point.x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x +  point.x );
-    else if( x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x +  point.x );
-    if(  point.y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y +  point.y );
-    else if(  point.y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y +  point.y );
-    //Bottom Right Corner
-    //x = point.x + w; - don't need to recalculate
-    y = - h;
-    rotated_x = x*c - y*s;
-    rotated_y = x*s + y*c;
-    if( point.x+rotated_x <= left_limit )
-        point.x += left_limit - (rotated_x +  point.x );
-    else if(  point.x+rotated_x >= right_limit )
-        point.x += right_limit - (rotated_x + point.x );
-    if(  point.y+rotated_y >= top_limit )
-        point.y += top_limit - (rotated_y + point.y );
-    else if(  point.y+rotated_y <= bottom_limit )
-        point.y += bottom_limit - (rotated_y +  point.y );
-        
+    //Make sure bottom left corner is still in bounds
+    if(  bl.x < left_limit )
+        translate2D(left_limit - bl.x,0);
+    else if(  bl.x >= right_limit )
+        translate2D(right_limit - bl.x, 0);
+
+    if(  bl.y >= top_limit )
+        translate2D(0,top_limit - bl.y);
+    else if( bl.y <= bottom_limit )
+        translate2D(0,bottom_limit - bl.y);
+
+    //get the updated corners, in case we moved
+    get_corners(bl,br,tl,tr);
+
+    //Make sure bottom right corner is still in bounds
+    if(  br.x < left_limit )
+        translate2D(left_limit - br.x,0);
+    else if(  br.x >= right_limit )
+        translate2D(right_limit - br.x, 0);
+
+    if(  br.y >= top_limit )
+        translate2D(0,top_limit - br.y);
+    else if( br.y <= bottom_limit )
+        translate2D(0,bottom_limit - br.y);
+
+    //get the updated corners, in case we moved
+    get_corners(bl,br,tl,tr);
+
+    //Make sure top left corner is still in bounds
+    if(  tl.x < left_limit )
+        translate2D(left_limit - tl.x,0);
+    else if(  tl.x >= right_limit )
+        translate2D(right_limit - tl.x, 0);
+
+    if(  tl.y >= top_limit )
+        translate2D(0,top_limit - tl.y);
+    else if( tl.y <= bottom_limit )
+        translate2D(0,bottom_limit - tl.y);
+
+    //get the updated corners, in case we moved
+    get_corners(bl,br,tl,tr);
+
+    //Make sure top right corner is still in bounds
+    if(  tr.x < left_limit )
+        translate2D(left_limit - tr.x,0);
+    else if(  tr.x >= right_limit )
+        translate2D(right_limit - tr.x, 0);
+
+    if(  tr.y >= top_limit )
+        translate2D(0,top_limit - tr.y);
+    else if( tr.y <= bottom_limit )
+        translate2D(0,bottom_limit - tr.y);
+
+    //get the updated corners, in case we moved
+    get_corners(bl,br,tl,tr);
 }
 
 void Paddle::set_limits(float left, float right, float bottom, float top)

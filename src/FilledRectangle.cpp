@@ -11,44 +11,17 @@ FilledRectangle::~FilledRectangle()
 }
 
 void FilledRectangle::draw()
-{
-    float x,y,rotated_x,rotated_y;
-    //Precalculate sin and cos, 1/2 w and h
-    float c = cos(point.yaw);
-    float s = sin(point.yaw);
-    float w = 0.5*width;
-    float h = 0.5*height;
+{    
+    Point2D bl,br,tl,tr;
+    get_corners(bl,br,tl,tr);
     glColor3f(color.r, color.g, color.b);
-        glBegin( GL_POLYGON );
-
-        //Bottom Left Corner
-        x = - w;
-        y = - h;
-        rotated_x = x*c - y*s;
-        rotated_y = x*s + y*c;
-        glVertex2f( point.x + rotated_x, point.y + rotated_y );
-
-        //Top Left Corner
-        //x = w; - don't need to recalculate
-        y = h;
-        rotated_x = x*c - y*s;
-        rotated_y = x*s + y*c;
-        glVertex2f( point.x + rotated_x, point.y + rotated_y );
-
-        //Top Right Corner
-        x = w;
-        //y = point.y + h; - don't need to recalculate
-        rotated_x = x*c - y*s;
-        rotated_y = x*s + y*c;
-        glVertex2f( point.x + rotated_x, point.y +rotated_y );
-
-        //Bottom Right Corner
-        //x = point.x + w; - don't need to recalculate
-        y = - h;
-        rotated_x = x*c - y*s;
-        rotated_y = x*s + y*c;
-        glVertex2f( point.x + rotated_x, point.y + rotated_y );
-    glEnd();    
+    
+    glBegin( GL_POLYGON );
+        glVertex2f(bl.x,bl.y);
+        glVertex2f(tl.x,tl.y);
+        glVertex2f(tr.x,tr.y);
+        glVertex2f(br.x,br.y);
+    glEnd();
     Rectangle::draw();
 }
 
