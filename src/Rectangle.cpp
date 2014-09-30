@@ -115,11 +115,20 @@ void Rectangle::set_color(float r, float g, float b)
 float Rectangle::get_width(){ return width; }
 float Rectangle::get_height(){ return height; }
 
-void Rectangle::set_width(float width){ this->width = width;}
-void Rectangle::set_height(float height){ this->height = height;}
+void Rectangle::set_width(float width)
+{
+    this->width = width;
+    update_corners();
+}
+void Rectangle::set_height(float height)
+{
+     this->height = height;
+     update_corners();
+}
 
 void Rectangle::set_size(float width, float height)
 {
     this->width = width;
     this->height = height;
+    update_corners();
 }
