@@ -1,0 +1,56 @@
+README
+
+CSC 433/533 - Computer Graphics
+Program 1 - Pong
+
+Authors:
+Ian Carlson
+Christopher Smith
+
+Program Description:
+The classic arcade game Pong with a few twists.
+
+Compilation Instructions:
+>make
+
+The makefile should take care of the rest.
+
+Known Bugs:
+The collision detection is still a little buggy. (not a feature)
+At very high speeds, the ball can jump through the paddles. (feature?)
+At very high speeds, the paddles become more or less uncontrollable. (feature?)
+
+Extra Stuff:
+Paddle rotation
+Ball speed adjustment -  +,- increase and decrease ball speed
+Paddle speed adjustment - *,/ increase and decrease paddle speed
+Smooth paddle control (you don't have to repeatedly hit the keys to keep moving)
+    You can also move diagonally and move both paddles at the same time
+    Theoretically you can move diagonally and rotate at the same time but 
+        most keyboards don't allow more than a few keys at a time.
+        Fortunately the num-pad and letters seems to be counted separately
+Keys ignore caps and num-lock
+Numpad control to allow both players a similar key layout
+Controls displayed in pause screen
+
+Controls
+
+Pause - Spacebar, p, P
+Paddle Speed - +,-
+Ball Speed - *,/
+
+Player 1
+Up - w,W
+Down - s,S
+Left - a,A
+Right - d,D
+Rotate Left - q,Q
+Rotate Right - e,E
+
+Player 2
+Up (UP_ARROW),8
+Down (DOWN_ARROW),5,2
+Left (LEFT_ARROW),4
+Right (RIGHT_ARROW),6
+Rotate Left - (HOME),7
+Rotate Right - (PAGE_UP),9
