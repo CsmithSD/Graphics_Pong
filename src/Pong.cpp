@@ -76,6 +76,8 @@ void display( void )
         showStartScreen();
         LEFT_SCORE = 0;
         RIGHT_SCORE = 0;
+        BALL_WARP = 1;
+        PADDLE_WARP = 1;
         //Display Name
         //Display Controls
         break;
@@ -138,6 +140,8 @@ void idle()
     //scale the motion to the amount of time between frames.
     //We define "Normal" as 25 frames per second and scale based on that
     static clock_t last_time = clock();
+    static clock_t last_right_shrink =  clock() - 10000;
+    static clock_t last_left_shrink  =  clock() - 10000;
     clock_t new_time = clock();
     clock_t delta = new_time - last_time;
     float scale_factor = ((float)delta/CLOCKS_PER_SEC)/(0.04);
@@ -167,11 +171,17 @@ void idle()
         default:
             left_paddle.animate(scale_factor*PADDLE_WARP);
             //Shrinks the paddle by 10% if the ball strikes it
-            if(ball.check_paddle_collision( left_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
+            if(ball.check_paddle_collision( left_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP) && ((clock() - last_left_shrink) > 10000) )
+            {
                 left_paddle.shrink();
+                last_left_shrink = clock();
+            }
             right_paddle.animate(scale_factor*PADDLE_WARP);
-            if(ball.check_paddle_collision( right_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP))
+            if(ball.check_paddle_collision( right_paddle , scale_factor*BALL_WARP, scale_factor*PADDLE_WARP) && ((clock() - last_right_shrink) > 10000) )
+            {
                 right_paddle.shrink();
+                last_right_shrink = clock();
+            }
             break;
         }
     }
@@ -210,14 +220,14 @@ void draw_scores()
     //Displays the Player 2 string to the screen
     glColor3f(0,1,1);
     glPushMatrix();
-    glTranslatef(800,1400,0);
+    glTranslatef(900,1400,0);
     glScalef(0.6,0.6,1);
     glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)"Player 2");
     glPopMatrix();
 
     //Displays the Player 2 score to the screen
     glPushMatrix();
-    glTranslatef(800,1300,0);
+    glTranslatef(900,1300,0);
     glScalef(0.6,0.6,1);
     glutStrokeString(GLUT_STROKE_ROMAN, (const unsigned char *)right_str);
     glPopMatrix();
@@ -233,7 +243,7 @@ void showPausedStr()
     glColor3f(1,1,1);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef( 100, 100, 0 );
+    glTranslatef( 350, 100, 0 );
     // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
     glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"***PAUSED***" );
     glPopMatrix();
@@ -246,14 +256,113 @@ void showPausedStr()
 * ****************************************************************************/
 void showStartScreen()
 {
-    glColor3f(1,1,1 );
-    glRasterPos2f( 100, 100 );
+    //Displays player 1 Controls
+    glColor3f(1,1,1);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef( 100, 1150, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"PLAYER 1 CONTROLS:" );
+    glPopMatrix();
 
-    // glutBitmapString is available in freeglut
-    glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char *)"test2asdfasdfasdt");
+    glPushMatrix();
+    glTranslatef( 150, 950, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"W,w: Move Up" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 150, 800, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"D,d: Move Down" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 150, 650, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"A,a: Move Left" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 150, 500, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"D,d: Move Right" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 150, 350, 0 );
 
-    // GLUT only supports glutBitmapCharacter
-    // while ( *string ) glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_24, *string++ );
+
+    //Displays the universal controls for speeds and pause
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Q, q & E, e: Rotate Left/Right" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 500, 250, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Spacebar, p, P: Pause Start Game" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 500, 150, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"+, -: Speed Up/Slow Ball" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 500, 50, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"*, /: Speed Up/Slow Paddles" );
+    glPopMatrix();
+
+
+    //Displays the Controls for Player 2
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef( 900, 1150, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"PLAYER 2 CONTROLS:" );
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef( 940, 950, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Up Arrow, 8: Move Up" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 940, 800, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Down Arrow, 5, 2: Move Down" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 940, 650, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Left Arrow, 4: Move Left" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 940, 500, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"Right Arrow, 6: Move Right" );
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef( 940, 350, 0 );
+    // while ( *string ) glutStrokeCharacter( GLUT_STROKE_ROMAN, *string++ );
+    glScalef(0.3,0.3,1);
+    glutStrokeString( GLUT_STROKE_ROMAN, (const unsigned char *)"7, Home & 9, PgUp: Rotate Left/Right" );
+    glPopMatrix();
+    glPushMatrix();
+
+
+
+
 }
 
 /******************************************************************************
@@ -306,8 +415,6 @@ void reshape( int w, int h )
 void special_keyboard( int key, int x, int y)
 {
     y = ScreenHeight -y;
-    cerr << "Special Keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
-
     Velocity2D right = right_paddle.get_velocity();
     switch(key)
     {
@@ -365,8 +472,6 @@ void special_keyboard( int key, int x, int y)
 void special_keyboardUp( int key, int x, int y)
 {
     y = ScreenHeight -y;
-    cerr << "Special KeyRelease: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
-
     Velocity2D right = right_paddle.get_velocity();
     switch(key)
     {
@@ -425,8 +530,6 @@ void keyboardUp(unsigned char key, int x, int y)
 {
     // correct for upside-down screen coordinates
     y = ScreenHeight - y;
-    cerr << "keyrelease: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
-
     Velocity2D left = left_paddle.get_velocity();
     Velocity2D right = right_paddle.get_velocity();
     // process keypresses
@@ -471,6 +574,7 @@ void keyboardUp(unsigned char key, int x, int y)
         right.x_vel -= PADDLE_SPEED;
         break;
     case '5':
+    case '2':
         right.y_vel += PADDLE_SPEED;
         break;
     case '8':
@@ -520,8 +624,6 @@ void keyboard( unsigned char key, int x, int y )
 {
     // correct for upside-down screen coordinates
     y = ScreenHeight - y;
-    cerr << "keypress: " << key << " (" << int( key ) << ") at (" << x << "," << y << ")\n";
-
     Velocity2D left = left_paddle.get_velocity();
     Velocity2D right = right_paddle.get_velocity();
     // process keypresses
@@ -574,6 +676,7 @@ void keyboard( unsigned char key, int x, int y )
         break;
 
     case '+':
+    case '=':
         BALL_WARP *=1.5;
         break;
     case '-':
@@ -599,6 +702,7 @@ void keyboard( unsigned char key, int x, int y )
         right.x_vel += PADDLE_SPEED;
         break;
     case '5':
+    case '2':
         right.y_vel -= PADDLE_SPEED;
         break;
     case '8':

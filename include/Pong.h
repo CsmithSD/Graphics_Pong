@@ -13,8 +13,6 @@
 
 // include files c/c++ libraries
 #include <ctime>
-#include <iostream>
-#include <vector>
 #include <stdio.h>
 using namespace std;
 
@@ -36,7 +34,8 @@ using namespace std;
 const int EscapeKey = 27;
 // world coordinate window extents: -1000 to +1000 in smaller dimension
 
-Ball ball(Point2D(TOTAL_WIDTH/2.0,TOTAL_HEIGHT/2.0),BALL_SIZE,Color(1,0,0),Velocity2D(500,500,0));
+//Global Class Constructs
+Ball ball(Point2D(TOTAL_WIDTH/2.0,TOTAL_HEIGHT/2.0),BALL_SIZE,Color(1,0,0),Velocity2D(-500,0,0));
 Paddle left_paddle(Point2D(PADDLE_WIDTH,TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,0));
 Paddle right_paddle(Point2D(TOTAL_WIDTH - PADDLE_WIDTH, TOTAL_HEIGHT/2.0),PADDLE_WIDTH,PADDLE_HEIGHT,Color(0,1,1));
 
@@ -49,14 +48,12 @@ float PADDLE_WARP = 1;
 int GAMESTATE = 0;
 bool PAUSED = false;
 
-
 // global vars
 int ScreenWidth  = 600;
 int ScreenHeight = 600;
 int SERVE_NUM = 0;
 int LEFT_SCORE = 0;
 int RIGHT_SCORE = 0;
-
 
 // OpenGL callback function prototypes
 void display( void );
@@ -78,6 +75,3 @@ void draw_scores();
 
 // useful graphics function prototypes
 void initOpenGL( void );
-
-/******************************************************************************/
-
